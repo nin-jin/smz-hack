@@ -1674,6 +1674,57 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_unit extends $mol_object {
+        'valueOf()': number;
+        constructor(value?: number);
+        prefix(): string;
+        postfix(): string;
+        valueOf(): number;
+        delimiter(): string;
+        value_view(): string;
+        toString(): string;
+        static summ(a: $mol_unit, b: $mol_unit): any;
+        mult(m: number): this;
+    }
+}
+
+declare namespace $ {
+    class $mol_cost extends $mol_view {
+        value(): any;
+        sub(): readonly any[];
+        prefix(): string;
+        Prefix(): $mol_view;
+        value_view(): string;
+        Value(): $mol_view;
+        postfix(): string;
+        Postfix(): $mol_view;
+    }
+}
+
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_cost extends $.$mol_cost {
+        value(): $mol_unit_money;
+        prefix(): string;
+        value_view(): string;
+        postfix(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_icon_cross extends $mol_icon {
         path(): string;
     }
@@ -2092,6 +2143,21 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_button_major extends $mol_button_typed {
+        attr(): {
+            mol_theme: string;
+            disabled: boolean;
+            role: string;
+            tabindex: number;
+            title: string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $my_smz extends $mol_book2 {
         plugins(): readonly any[];
         Placeholder(): any;
@@ -2141,11 +2207,17 @@ declare namespace $ {
         Works(): $$.$mol_page;
         id(id: any): string;
         work_title(id: any): string;
-        Title(id: any): $$.$mol_paragraph;
-        Details_close_icon(): $mol_icon_cross;
-        Details_close(): $$.$mol_link;
+        Work_title(id: any): $$.$mol_paragraph;
+        work_amount(id: any): $mol_unit;
+        Work_amount(id: any): $$.$mol_cost;
+        Details_close_icon(id: any): $mol_icon_cross;
+        Details_close(id: any): $$.$mol_link;
         work_description(id: any): string;
         Description(id: any): $$.$mol_text;
+        allow(event?: any): any;
+        Allow_label(id: any): string;
+        Allow_amount(id: any): $$.$mol_cost;
+        Allow(id: any): $mol_button_major;
     }
 }
 
@@ -2162,6 +2234,7 @@ declare namespace $.$$ {
         work_title(id: string): any;
         work_description(id: string): any;
         work_payed(id: string): any;
+        work_amount(id: string): $mol_unit;
         id(id: string): string;
     }
 }

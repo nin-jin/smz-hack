@@ -158,6 +158,19 @@ $mol_paragraph $mol_view
 	width_limit Infinity
 	sub / <= title
 
+$mol_cost $mol_view
+	value null
+	sub /
+		<= Prefix $mol_view
+			sub /
+				<= prefix \
+		<= Value $mol_view
+			sub /
+				<= value_view \
+		<= Postfix $mol_view
+			sub /
+				<= postfix \
+
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
 $mol_float $mol_view
@@ -317,6 +330,11 @@ $mol_text_image $mol_view
 	sub /
 		<= title?val \
 
+$mol_button_major $mol_button_typed
+	attr *
+		^
+		mol_theme \$mol_theme_accent
+
 $my_smz $mol_book2
 	plugins /
 		<= Theme $mol_theme_auto
@@ -347,19 +365,27 @@ $my_smz $mol_book2
 	Work_link!id $mol_link
 		arg * work <= id!id \
 		sub /
-			<= Title!id $mol_paragraph
+			<= Work_title!id $mol_paragraph
 				sub /
 					<= work_title!id \
+			<= Work_amount!id $mol_cost
+				value <= work_amount!id $mol_unit
 	Details!id $mol_page
 		title <= work_title!id \
 		tools /
-			<= Details_close $mol_link
+			<= Details_close!id $mol_link
 				arg * work null
 				sub /
-					<= Details_close_icon $mol_icon_cross
+					<= Details_close_icon!id $mol_icon_cross
 		body /
 			<= Description!id $mol_text
 				text <= work_description!id \
+			<= Allow!id $mol_button_major
+				click?event <=> allow?event null
+				sub /
+					<= Allow_label!id @ \Transfer 
+					<= Allow_amount!id $mol_cost
+						value <= work_amount!id $mol_unit
 	work_store $mol_store / *
 		123 *
 			title \Промо компания в Ютубе

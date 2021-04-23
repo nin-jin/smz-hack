@@ -5302,6 +5302,158 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_unit extends $.$mol_object {
+        constructor(value) {
+            super();
+            if (value !== undefined)
+                this['valueOf()'] = value;
+        }
+        prefix() {
+            return '';
+        }
+        postfix() {
+            return '';
+        }
+        valueOf() {
+            return this['valueOf()'];
+        }
+        delimiter() {
+            return ' ';
+        }
+        value_view() {
+            return this.valueOf().toLocaleString();
+        }
+        toString() {
+            return this.prefix() + this.value_view() + this.postfix();
+        }
+        static summ(a, b) {
+            var Class = a.constructor;
+            if (Class !== b.constructor)
+                throw new Error(`Not same measure: ${Class} , ${b.constructor}`);
+            return new Class(a.valueOf() + b.valueOf());
+        }
+        mult(m) {
+            var Class = this.constructor;
+            return new Class(this.valueOf() * m);
+        }
+    }
+    $.$mol_unit = $mol_unit;
+})($ || ($ = {}));
+//unit.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_cost extends $.$mol_view {
+        value() {
+            return null;
+        }
+        sub() {
+            return [
+                this.Prefix(),
+                this.Value(),
+                this.Postfix()
+            ];
+        }
+        prefix() {
+            return "";
+        }
+        Prefix() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.prefix()
+            ];
+            return obj;
+        }
+        value_view() {
+            return "";
+        }
+        Value() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.value_view()
+            ];
+            return obj;
+        }
+        postfix() {
+            return "";
+        }
+        Postfix() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.postfix()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Prefix", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Postfix", null);
+    $.$mol_cost = $mol_cost;
+})($ || ($ = {}));
+//cost.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/cost/cost.view.css", "[mol_cost] {\n\twhite-space: nowrap;\n\tfont-weight: normal;\n\tdisplay: inline;\n}\n\n[mol_cost_main] {\n\tdisplay: inline;\n}\n\n[mol_cost_prefix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n}\n\n[mol_cost_value] {\n\tdisplay: inline;\n}\n\n[mol_cost_postfix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n\twhite-space: pre-wrap;\n}\n");
+})($ || ($ = {}));
+//cost.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_cost extends $.$mol_cost {
+            value() {
+                return null;
+            }
+            prefix() {
+                return this.value().prefix();
+            }
+            value_view() {
+                return this.value().value_view();
+            }
+            postfix() {
+                return this.value().postfix();
+            }
+        }
+        $$.$mol_cost = $mol_cost;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//cost.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_icon_cross extends $.$mol_icon {
         path() {
             return "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
@@ -6605,6 +6757,25 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_button_major extends $.$mol_button_typed {
+        attr() {
+            return Object.assign(Object.assign({}, super.attr()), { mol_theme: "$mol_theme_accent" });
+        }
+    }
+    $.$mol_button_major = $mol_button_major;
+})($ || ($ = {}));
+//major.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/button/major/major.view.css", "[mol_button_major][disabled] {\n\topacity: .5;\n\tfilter: grayscale();\n}\n");
+})($ || ($ = {}));
+//major.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $my_smz extends $.$mol_book2 {
         plugins() {
             return [
@@ -6626,7 +6797,8 @@ var $;
                 work: this.id(id)
             });
             obj.sub = () => [
-                this.Title(id)
+                this.Work_title(id),
+                this.Work_amount(id)
             ];
             return obj;
         }
@@ -6634,10 +6806,11 @@ var $;
             const obj = new this.$.$mol_page();
             obj.title = () => this.work_title(id);
             obj.tools = () => [
-                this.Details_close()
+                this.Details_close(id)
             ];
             obj.body = () => [
-                this.Description(id)
+                this.Description(id),
+                this.Allow(id)
             ];
             return obj;
         }
@@ -6751,24 +6924,33 @@ var $;
         work_title(id) {
             return "";
         }
-        Title(id) {
+        Work_title(id) {
             const obj = new this.$.$mol_paragraph();
             obj.sub = () => [
                 this.work_title(id)
             ];
             return obj;
         }
-        Details_close_icon() {
+        work_amount(id) {
+            const obj = new this.$.$mol_unit();
+            return obj;
+        }
+        Work_amount(id) {
+            const obj = new this.$.$mol_cost();
+            obj.value = () => this.work_amount(id);
+            return obj;
+        }
+        Details_close_icon(id) {
             const obj = new this.$.$mol_icon_cross();
             return obj;
         }
-        Details_close() {
+        Details_close(id) {
             const obj = new this.$.$mol_link();
             obj.arg = () => ({
                 work: null
             });
             obj.sub = () => [
-                this.Details_close_icon()
+                this.Details_close_icon(id)
             ];
             return obj;
         }
@@ -6778,6 +6960,28 @@ var $;
         Description(id) {
             const obj = new this.$.$mol_text();
             obj.text = () => this.work_description(id);
+            return obj;
+        }
+        allow(event) {
+            if (event !== undefined)
+                return event;
+            return null;
+        }
+        Allow_label(id) {
+            return this.$.$mol_locale.text('$my_smz_Allow_label');
+        }
+        Allow_amount(id) {
+            const obj = new this.$.$mol_cost();
+            obj.value = () => this.work_amount(id);
+            return obj;
+        }
+        Allow(id) {
+            const obj = new this.$.$mol_button_major();
+            obj.click = (event) => this.allow(event);
+            obj.sub = () => [
+                this.Allow_label(id),
+                this.Allow_amount(id)
+            ];
             return obj;
         }
     }
@@ -6822,16 +7026,31 @@ var $;
     ], $my_smz.prototype, "Works", null);
     __decorate([
         $.$mol_mem_key
-    ], $my_smz.prototype, "Title", null);
+    ], $my_smz.prototype, "Work_title", null);
     __decorate([
-        $.$mol_mem
+        $.$mol_mem_key
+    ], $my_smz.prototype, "work_amount", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Work_amount", null);
+    __decorate([
+        $.$mol_mem_key
     ], $my_smz.prototype, "Details_close_icon", null);
     __decorate([
-        $.$mol_mem
+        $.$mol_mem_key
     ], $my_smz.prototype, "Details_close", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Description", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "allow", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Allow_amount", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Allow", null);
     $.$my_smz = $my_smz;
 })($ || ($ = {}));
 //smz.view.tree.js.map
@@ -6839,7 +7058,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_filters] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_works] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_work_list] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_details] {\n\tflex: 30rem 1 0;\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_filters] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_works] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_work_list] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_work_link] {\n\tjustify-content: space-between;\n}\n\n[my_smz_details] {\n\tflex: 30rem 1 0;\n}\n\n[my_smz_allow] {\n\tmargin: var(--mol_gap_block);\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
@@ -6880,6 +7099,12 @@ var $;
             }
             work_payed(id) {
                 return this.work_store().sub(id).value('is_payed');
+            }
+            work_amount(id) {
+                const data = this.work_store().sub(id);
+                const unit = new $.$mol_unit(data.value('amount'));
+                unit.postfix = () => ' ' + data.value('currency');
+                return unit;
             }
             id(id) {
                 return id;
@@ -9742,6 +9967,30 @@ var $;
     });
 })($ || ($ = {}));
 //maybe.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'convertion to primitives'() {
+            var unit = new $.$mol_unit_money_usd(5);
+            $.$mol_assert_equal(unit.valueOf(), 5);
+            $.$mol_assert_equal(unit * 2, 10);
+            $.$mol_assert_equal(unit + '', '$5');
+            $.$mol_assert_equal(`${unit}`, '$5');
+            $.$mol_assert_equal(unit.toString(), '$5');
+            $.$mol_assert_equal(String(unit), '$5');
+        },
+        'arithmetic'() {
+            var usd1 = new $.$mol_unit_money_usd(2);
+            var usd2 = new $.$mol_unit_money_usd(3);
+            var rur = new $.$mol_unit_money_rur(2);
+            $.$mol_assert_equal($.$mol_unit.summ(usd1, usd2).toString(), '$5');
+            $.$mol_assert_equal(usd1.mult(2).toString(), '$4');
+        },
+    });
+})($ || ($ = {}));
+//unit.test.js.map
 ;
 "use strict";
 //intersect.test.js.map
