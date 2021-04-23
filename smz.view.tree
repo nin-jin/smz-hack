@@ -4,7 +4,7 @@ $my_smz $mol_book2
 	Placeholder null
 	pages /
 		<= Menu $mol_page
-			title @ \Work Payment
+			title @ \Filters
 			tools /
 				<= Source $mol_link_source uri \https://github.com/nin-jin/smz-hack
 				<= Lights $mol_lights_toggle
@@ -13,15 +13,15 @@ $my_smz $mol_book2
 					<= Unpayed_link $mol_link
 						title @ \Unpayed
 						arg *
-							payed null
+							payed \false
 							work null
 					<= Payed_link $mol_link
 						title @ \Payed
 						arg *
-							payed \
+							payed \true
 							work null
 		<= Works $mol_page
-			title @ \Works
+			title @ \Done Works
 			body /
 				<= Work_list $mol_list
 					rows <= work_list /$mol_view

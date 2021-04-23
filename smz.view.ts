@@ -9,7 +9,7 @@ namespace $.$$ {
 
 		@ $mol_mem
 		filter_payed() {
-			return this.$.$mol_state_arg.value( 'payed' ) !== null
+			return this.$.$mol_state_arg.value( 'payed' )
 		}
 
 		@ $mol_mem
@@ -22,14 +22,19 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
+		work_all() {
+			return Object.keys( this.work_store().data() )
+		}
+
+		@ $mol_mem
 		work_list() {
 
-			const payed = this.filter_payed()
-			
-			return Object.keys( this.work_store().data() )
-			.filter( id => this.work_payed( id ) === payed )
-			.map( id => this.Work_link( id ) )
+			let works = this.work_all()
 
+			const payed = this.filter_payed()
+			if( payed ) works = works.filter( id => String( this.work_payed( id ) ) === payed )
+			
+			return works.map( id => this.Work_link( id ) )
 		}
 
 		work_title( id: string ) {
