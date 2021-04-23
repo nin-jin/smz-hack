@@ -1,5 +1,5 @@
 [my_smz_menu] {
-	flex: 20rem 0 0;
+	flex: 15rem 0 0;
 }
 
 [my_smz_filters] {
@@ -7,7 +7,11 @@
 }
 
 [my_smz_works] {
-	flex: 20rem 0 0;
+	flex: 30rem 0 0;
+}
+
+[my_smz_work_list] {
+	padding: var(--mol_gap_block);
 }
 
 [my_smz_details] {

@@ -12,15 +12,56 @@ $my_smz $mol_book2
 				<= Filters $mol_list rows /
 					<= Unpayed_link $mol_link
 						title @ \Unpayed
-						arg * payed null
+						arg *
+							payed null
+							work null
 					<= Payed_link $mol_link
 						title @ \Payed
-						arg * payed \
+						arg *
+							payed \
+							work null
 		<= Works $mol_page
 			title @ \Works
-		<= Details $mol_page
-			title @ \Work Details
-			tools /
-				<= Details_close $mol_link
-					sub /
-						<= Details_close_icon $mol_icon_cross
+			body /
+				<= Work_list $mol_list
+					rows <= work_list /$mol_view
+	Work_link!id $mol_link
+		arg * work <= id!id \
+		sub /
+			<= Title!id $mol_paragraph
+				sub /
+					<= work_title!id \
+	Details!id $mol_page
+		title <= work_title!id \
+		tools /
+			<= Details_close $mol_link
+				arg * work null
+				sub /
+					<= Details_close_icon $mol_icon_cross
+		body /
+			<= Description!id $mol_text
+				text <= work_description!id \
+	work_store $mol_store / *
+		123 *
+			title \Промо компания в Ютубе
+			description \В 10 роликах добавлена реклама по 1 минуте.
+			worker \tra
+			approver \vas
+			amount 50000
+			currency \RUB
+			is_payed false
+		456 *
+			title \Игрушка для дочки директора
+			description \Хендмейд **гипоэллергенная** плюшевая игрушка в виде розового единорога.
+			worker \mar
+			approver \vas
+			amount 5000
+			currency \RUB
+			is_payed true
+	person_store $mol_store / *
+		tra *
+			name \Тимур Трахтенберг
+		vas *
+			name \Бригадир Васян
+		mar *
+			name \Мария Искусница
