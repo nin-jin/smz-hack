@@ -2140,8 +2140,9 @@ declare namespace $ {
 declare namespace $.$$ {
     class $my_smz extends $.$my_smz {
         work_current(): string | null;
-        filter_payed(): boolean;
+        filter_payed(): string | null;
         pages(): $mol_page[];
+        work_all(): string[];
         work_list(): $mol_link[];
         work_title(id: string): any;
         work_description(id: string): any;

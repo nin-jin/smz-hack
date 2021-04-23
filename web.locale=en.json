@@ -1,8 +1,8 @@
 {
 	"$mol_lights_toggle_hint": "Toggle lights",
 	"$mol_link_source_hint": "Source code",
-	"$my_smz_Menu_title": "Work Payment",
+	"$my_smz_Menu_title": "Filters",
 	"$my_smz_Payed_link_title": "Payed",
 	"$my_smz_Unpayed_link_title": "Unpayed",
-	"$my_smz_Works_title": "Works"
+	"$my_smz_Works_title": "Done Works"
 }

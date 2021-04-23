@@ -6527,7 +6527,7 @@ var $;
             const obj = new this.$.$mol_link();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Unpayed_link_title');
             obj.arg = () => ({
-                payed: null,
+                payed: "false",
                 work: null
             });
             return obj;
@@ -6536,7 +6536,7 @@ var $;
             const obj = new this.$.$mol_link();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Payed_link_title');
             obj.arg = () => ({
-                payed: "",
+                payed: "true",
                 work: null
             });
             return obj;
@@ -6685,7 +6685,7 @@ var $;
                 return this.$.$mol_state_arg.value('work');
             }
             filter_payed() {
-                return this.$.$mol_state_arg.value('payed') !== null;
+                return this.$.$mol_state_arg.value('payed');
             }
             pages() {
                 return [
@@ -6694,11 +6694,15 @@ var $;
                     ...this.work_current() ? [this.Details(this.work_current())] : []
                 ];
             }
+            work_all() {
+                return Object.keys(this.work_store().data());
+            }
             work_list() {
+                let works = this.work_all();
                 const payed = this.filter_payed();
-                return Object.keys(this.work_store().data())
-                    .filter(id => this.work_payed(id) === payed)
-                    .map(id => this.Work_link(id));
+                if (payed)
+                    works = works.filter(id => String(this.work_payed(id)) === payed);
+                return works.map(id => this.Work_link(id));
             }
             work_title(id) {
                 return this.work_store().sub(id).value('title');
@@ -6722,6 +6726,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "pages", null);
+        __decorate([
+            $.$mol_mem
+        ], $my_smz.prototype, "work_all", null);
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "work_list", null);
