@@ -1,4 +1,9 @@
 {
 	"$mol_lights_toggle_hint": "Переключатель света",
-	"$mol_link_source_hint": "Исходные коды"
+	"$mol_link_source_hint": "Исходные коды",
+	"$my_smz_Allow_label": "Оплатить ",
+	"$my_smz_Menu_title": "Фильтры",
+	"$my_smz_Payed_link_title": "Оплачено",
+	"$my_smz_Unpayed_link_title": "Не оплачено",
+	"$my_smz_Works_title": "Сделанные работы"
 }
