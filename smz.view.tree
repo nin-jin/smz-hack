@@ -1,0 +1,8 @@
+$my_smz $mol_book2
+	pages /
+		<= Menu $mol_page
+			title @ \Work Payment
+		<= Works $mol_page
+			title @ \Works
+		<= Details $mol_page
+			title @ \Work Details
