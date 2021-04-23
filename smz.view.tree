@@ -28,19 +28,27 @@ $my_smz $mol_book2
 	Work_link!id $mol_link
 		arg * work <= id!id \
 		sub /
-			<= Title!id $mol_paragraph
+			<= Work_title!id $mol_paragraph
 				sub /
 					<= work_title!id \
+			<= Work_amount!id $mol_cost
+				value <= work_amount!id $mol_unit
 	Details!id $mol_page
 		title <= work_title!id \
 		tools /
-			<= Details_close $mol_link
+			<= Details_close!id $mol_link
 				arg * work null
 				sub /
-					<= Details_close_icon $mol_icon_cross
+					<= Details_close_icon!id $mol_icon_cross
 		body /
 			<= Description!id $mol_text
 				text <= work_description!id \
+			<= Allow!id $mol_button_major
+				click?event <=> allow?event null
+				sub /
+					<= Allow_label!id @ \Transfer 
+					<= Allow_amount!id $mol_cost
+						value <= work_amount!id $mol_unit
 	work_store $mol_store / *
 		123 *
 			title \Промо компания в Ютубе
