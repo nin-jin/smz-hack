@@ -23,5 +23,5 @@
 }
 
 [my_smz_allow] {
-	margin: var(--mol_gap_block);
+	margin: 0 auto;
 }
