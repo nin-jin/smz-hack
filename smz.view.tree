@@ -6,6 +6,7 @@ $my_smz $mol_book2
 		<= Menu $mol_page
 			title @ \Work Payment
 			tools /
+				<= Source $mol_link_source uri \https://github.com/nin-jin/smz-hack
 				<= Lights $mol_lights_toggle
 			body /
 				<= Filters $mol_list rows /
