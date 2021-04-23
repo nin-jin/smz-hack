@@ -1,0 +1,57 @@
+<!doctype html>
+<html style=" height: 100% ">
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+
+<link rel="manifest" href="my/smz/manifest.json">
+
+<!-- description -->
+<meta name="description" content="Work Payment">
+<meta name="application-name" content="Work Payment">
+<meta name="apple-mobile-web-app-title" content="Work Payment">
+
+<!-- colors -->
+<meta name="theme-color" content="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- logo -->
+<link href="my/smz/logo/logo_16.png" rel="icon" />
+<link rel="apple-touch-icon" sizes="128x128" href="my/smz/logo/logo_128.png">
+<link rel="apple-touch-icon-precomposed" sizes="192x192" href="my/smz/logo/logo_192.png">
+<meta name="msapplication-TileImage" content="my/smz/logo/logo_192.png">
+
+<!-- full screen -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<style>
+	body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+</style>
+
+<body>
+	<div mol_view_root="$my_smz">
+		<script src="web.js"></script>
+	</div>
+
+				<script src="/mol/build/client/client.js" charset="utf-8"></script>
+				<script>
+					setTimeout( ()=> {
+
+						const test = document.createElement( 'script' )
+						test.src = 'web.test.js'
+						
+						const audit =  document.createElement( 'script' )
+						audit.src = 'web.audit.js'
+						
+						test.onload = ()=> document.head.appendChild( audit )
+						document.head.appendChild( test )
+
+					}, 250 )
+				</script>
+				</body>
