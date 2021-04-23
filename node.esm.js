@@ -7066,7 +7066,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_filters] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_works] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_work_list] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_work_link] {\n\tjustify-content: space-between;\n}\n\n[my_smz_details] {\n\tflex: 30rem 1 0;\n}\n\n[my_smz_allow] {\n\tmargin: var(--mol_gap_block);\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_filters] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_works] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_work_list] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_work_link] {\n\tjustify-content: space-between;\n}\n\n[my_smz_details] {\n\tflex: 30rem 1 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
