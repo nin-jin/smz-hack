@@ -1,8 +1,25 @@
 $my_smz $mol_book2
+	plugins /
+		<= Theme $mol_theme_auto
+	Placeholder null
 	pages /
 		<= Menu $mol_page
 			title @ \Work Payment
+			tools /
+				<= Lights $mol_lights_toggle
+			body /
+				<= Filters $mol_list rows /
+					<= Unpayed_link $mol_link
+						title @ \Unpayed
+						arg * payed null
+					<= Payed_link $mol_link
+						title @ \Payed
+						arg * payed \
 		<= Works $mol_page
 			title @ \Works
 		<= Details $mol_page
 			title @ \Work Details
+			tools /
+				<= Details_close $mol_link
+					sub /
+						<= Details_close_icon $mol_icon_cross
