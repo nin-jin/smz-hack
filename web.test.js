@@ -2124,40 +2124,6 @@ var $;
 ;
 "use strict";
 var $;
-(function ($) {
-    $.$mol_test_mocks.push(context => {
-        class $mol_state_local_mock extends $.$mol_state_local {
-            static value(key, next = this.state[key], force) {
-                return this.state[key] = (next || null);
-            }
-        }
-        $mol_state_local_mock.state = {};
-        __decorate([
-            $.$mol_mem_key
-        ], $mol_state_local_mock, "value", null);
-        context.$mol_state_local = $mol_state_local_mock;
-    });
-})($ || ($ = {}));
-//local.mock.test.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_test({
-        'local get set delete'() {
-            var key = '$mol_state_local_test:' + Math.random();
-            $.$mol_assert_equal($.$mol_state_local.value(key), null);
-            $.$mol_state_local.value(key, 123);
-            $.$mol_assert_equal($.$mol_state_local.value(key), 123);
-            $.$mol_state_local.value(key, null);
-            $.$mol_assert_equal($.$mol_state_local.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//local.test.js.map
-;
-"use strict";
-var $;
 (function ($_1) {
     $_1.$mol_test_mocks.push(context => {
         class $mol_state_arg_mock extends $_1.$mol_state_arg {
@@ -2204,6 +2170,158 @@ var $;
     });
 })($ || ($ = {}));
 //arg.web.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'default data'() {
+            const store = new $.$mol_store({
+                foo: 1,
+                bar: 2,
+            });
+            $.$mol_assert_equal(store.data().foo, 1);
+            $.$mol_assert_equal(store.data().bar, 2);
+        },
+        'safe reference'() {
+            const foo = { foo: 1 };
+            const bar = { bar: 1 };
+            const store = new $.$mol_store({ foo, bar });
+            store.data({ foo, bar });
+            store.data({
+                foo: { foo: 1 },
+                bar: { bar: 3 },
+            });
+            $.$mol_assert_equal(store.data().foo, foo);
+            $.$mol_assert_unique(store.data().bar, bar);
+        },
+        'get and set by shapshot'() {
+            const store = new $.$mol_store({
+                foo: 1,
+                bar: 2,
+            });
+            $.$mol_assert_equal(store.snapshot(), '{"foo":1,"bar":2}');
+            store.snapshot('{"foo":2,"bar":1}');
+            $.$mol_assert_equal(store.data().foo, 2);
+            $.$mol_assert_equal(store.data().bar, 1);
+        },
+        'get and set by key'() {
+            const store = new $.$mol_store({
+                foo: 1,
+            });
+            $.$mol_assert_equal(store.value('foo'), 1);
+            store.value('foo', 2);
+            $.$mol_assert_equal(store.value('foo'), 2);
+        },
+        'get and set by lens'() {
+            const store = new $.$mol_store({
+                foo: 1,
+            });
+            const lens = store.sub('foo');
+            $.$mol_assert_equal(lens.data(), 1);
+            lens.data(2);
+            $.$mol_assert_equal(lens.data(), 2);
+        },
+        'views and actions'() {
+            const Person = class extends $.$mol_store {
+                get full_name() {
+                    const name = this.value('name');
+                    return name.first + ' ' + name.last;
+                }
+                swap_names() {
+                    const name = this.value('name');
+                    this.value('name', {
+                        first: name.last,
+                        last: name.first,
+                    });
+                }
+            };
+            const store = new Person({
+                name: {
+                    first: 'Foo',
+                    last: 'Bar',
+                },
+            });
+            $.$mol_assert_equal(store.full_name, 'Foo Bar');
+            store.swap_names();
+            $.$mol_assert_equal(store.full_name, 'Bar Foo');
+        },
+        'nested views and actions'() {
+            class Person extends $.$mol_store {
+                get full_name() {
+                    const name = this.value('name');
+                    return name.first + ' ' + name.last;
+                }
+                swap_names() {
+                    const name = this.value('name');
+                    this.value('name', {
+                        first: name.last,
+                        last: name.first,
+                    });
+                }
+            }
+            class Band extends $.$mol_store {
+                get members() {
+                    const lens = this.sub('members');
+                    return new Proxy({}, {
+                        get: (_, id) => lens.sub(id, new Person),
+                    });
+                }
+            }
+            const band = new Band({
+                name: 'Dream Team',
+                members: {
+                    foo: {
+                        name: {
+                            first: 'Foo',
+                            last: 'Bar',
+                        },
+                    }
+                }
+            });
+            const person = band.members['foo'];
+            $.$mol_assert_equal(person.full_name, 'Foo Bar');
+            person.swap_names();
+            $.$mol_assert_equal(band.data().members['foo'].name.first, 'Bar');
+            $.$mol_assert_equal(band.data().members['foo'].name.last, 'Foo');
+        },
+    });
+})($ || ($ = {}));
+//store.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test_mocks.push(context => {
+        class $mol_state_local_mock extends $.$mol_state_local {
+            static value(key, next = this.state[key], force) {
+                return this.state[key] = (next || null);
+            }
+        }
+        $mol_state_local_mock.state = {};
+        __decorate([
+            $.$mol_mem_key
+        ], $mol_state_local_mock, "value", null);
+        context.$mol_state_local = $mol_state_local_mock;
+    });
+})($ || ($ = {}));
+//local.mock.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'local get set delete'() {
+            var key = '$mol_state_local_test:' + Math.random();
+            $.$mol_assert_equal($.$mol_state_local.value(key), null);
+            $.$mol_state_local.value(key, 123);
+            $.$mol_assert_equal($.$mol_state_local.value(key), 123);
+            $.$mol_state_local.value(key, null);
+            $.$mol_assert_equal($.$mol_state_local.value(key), null);
+        },
+    });
+})($ || ($ = {}));
+//local.test.js.map
 ;
 "use strict";
 var $;
@@ -2296,6 +2414,235 @@ var $;
     });
 })($ || ($ = {}));
 //maybe.test.js.map
+;
+"use strict";
+//intersect.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        'escape'() {
+            const specials = $.$mol_regexp.from('.*+?^${}()|[]\\');
+            $.$mol_assert_equal(specials.source, '\\.\\*\\+\\?\\^\\$\\{\\}\\(\\)\\|\\[\\]\\\\');
+        },
+        'char code'() {
+            const space = $.$mol_regexp.char_code(32);
+            $.$mol_assert_equal(space.exec(' ')[0], ' ');
+        },
+        'repeat fixed'() {
+            const { repeat, digit } = $.$mol_regexp;
+            const year = repeat(digit, 4, 4);
+            $.$mol_assert_equal(year.exec('#2020#')[0], '2020');
+        },
+        'greedy repeat'() {
+            const { repeat, repeat_greedy, letter } = $.$mol_regexp;
+            $.$mol_assert_equal(repeat(letter).exec('abc')[0], '');
+            $.$mol_assert_equal(repeat_greedy(letter).exec('abc')[0], 'abc');
+        },
+        'repeat range'() {
+            const { repeat_greedy, digit } = $.$mol_regexp;
+            const year = repeat_greedy(digit, 2, 4);
+            $.$mol_assert_equal(year.exec('#2#'), null);
+            $.$mol_assert_equal(year.exec('#20#')[0], '20');
+            $.$mol_assert_equal(year.exec('#2020#')[0], '2020');
+            $.$mol_assert_equal(year.exec('#20201#')[0], '2020');
+        },
+        'repeat from'() {
+            const { repeat_greedy, letter } = $.$mol_regexp;
+            const name = repeat_greedy(letter, 2);
+            $.$mol_assert_equal(name.exec('##'), null);
+            $.$mol_assert_equal(name.exec('#a#'), null);
+            $.$mol_assert_equal(name.exec('#ab#')[0], 'ab');
+            $.$mol_assert_equal(name.exec('#abc#')[0], 'abc');
+        },
+        'optional'() {
+            const { optional, letter } = $.$mol_regexp;
+            const name = optional(letter);
+            $.$mol_assert_equal(name.exec('')[0], '');
+            $.$mol_assert_equal(name.exec('a')[0], 'a');
+            $.$mol_assert_equal(name.exec('ab')[0], 'a');
+        },
+        'from string'() {
+            const regexp = $.$mol_regexp.from('[\\d]');
+            $.$mol_assert_equal(regexp.source, '\\[\\\\d\\]');
+            $.$mol_assert_equal(regexp.flags, 'gu');
+        },
+        'from regexp'() {
+            const regexp = $.$mol_regexp.from(/[\d]/i);
+            $.$mol_assert_equal(regexp.source, '[\\d]');
+            $.$mol_assert_equal(regexp.flags, 'i');
+        },
+        'case ignoring'() {
+            const xxx = $.$mol_regexp.from('x', { ignoreCase: true });
+            $.$mol_assert_like(xxx.flags, 'giu');
+            $.$mol_assert_like(xxx.exec('xx')[0], 'x');
+            $.$mol_assert_like(xxx.exec('XX')[0], 'X');
+        },
+        'multiline mode'() {
+            const { end } = $.$mol_regexp;
+            const xxx = $.$mol_regexp.from(['x', end], { multiline: true });
+            $.$mol_assert_like(xxx.exec('x\ny')[0], 'x');
+            $.$mol_assert_like(xxx.flags, 'gmu');
+        },
+        'sequence'() {
+            const { begin, end, digit, repeat } = $.$mol_regexp;
+            const year = repeat(digit, 4, 4);
+            const dash = '-';
+            const month = repeat(digit, 2, 2);
+            const day = repeat(digit, 2, 2);
+            const date = $.$mol_regexp.from([begin, year, dash, month, dash, day, end], { ignoreCase: true });
+            $.$mol_assert_like(date.exec('2020-01-02')[0], '2020-01-02');
+            $.$mol_assert_like(date.ignoreCase, true);
+        },
+        'only groups'() {
+            const regexp = $.$mol_regexp.from({ dog: '@' });
+            $.$mol_assert_like([...regexp.parse('#')], [{ 0: '#' }]);
+            $.$mol_assert_like([...regexp.parse('@')], [{ dog: '@' }]);
+        },
+        'catch skipped'() {
+            const regexp = $.$mol_regexp.from(/(@)(\d?)/g);
+            $.$mol_assert_like([...regexp.parse('[[@]]')], [
+                { 0: '[[' },
+                { 1: '@', 2: '' },
+                { 0: ']]' },
+            ]);
+        },
+        'enum variants'() {
+            let Sex;
+            (function (Sex) {
+                Sex["male"] = "male";
+                Sex["female"] = "female";
+            })(Sex || (Sex = {}));
+            const sexism = $.$mol_regexp.from(Sex);
+            $.$mol_assert_like([...sexism.parse('')], []);
+            $.$mol_assert_like([...sexism.parse('male')], [{ male: 'male', female: '' }]);
+            $.$mol_assert_like([...sexism.parse('female')], [{ male: '', female: 'female' }]);
+        },
+        'recursive only groups'() {
+            let Sex;
+            (function (Sex) {
+                Sex["male"] = "male";
+                Sex["female"] = "female";
+            })(Sex || (Sex = {}));
+            const sexism = $.$mol_regexp.from({ Sex });
+            $.$mol_assert_like([...sexism.parse('')], []);
+            $.$mol_assert_like([...sexism.parse('male')], [{ Sex: 'male', male: 'male', female: '' }]);
+            $.$mol_assert_like([...sexism.parse('female')], [{ Sex: 'female', male: '', female: 'female' }]);
+        },
+        'sequence with groups'() {
+            const { begin, end, digit, repeat } = $.$mol_regexp;
+            const year = repeat(digit, 4, 4);
+            const dash = '-';
+            const month = repeat(digit, 2, 2);
+            const day = repeat(digit, 2, 2);
+            const regexp = $.$mol_regexp.from([begin, { year }, dash, { month }, dash, { day }, end]);
+            const found = [...regexp.parse('2020-01-02')];
+            $.$mol_assert_like(found, [{
+                    year: '2020',
+                    month: '01',
+                    day: '02',
+                }]);
+        },
+        'sequence with groups of mixed type'() {
+            const prefix = '/';
+            const postfix = '/';
+            const regexp = $.$mol_regexp.from([{ prefix }, /(\w+)/, { postfix }, /([gumi]*)/]);
+            const found = [...regexp.parse('/foo/mi')];
+            $.$mol_assert_like(found, [{
+                    prefix: '/',
+                    0: 'foo',
+                    postfix: '/',
+                    1: 'mi',
+                }]);
+        },
+        'recursive sequence with groups'() {
+            const { begin, end, digit, repeat } = $.$mol_regexp;
+            const year = repeat(digit, 4, 4);
+            const dash = '-';
+            const month = repeat(digit, 2, 2);
+            const day = repeat(digit, 2, 2);
+            const regexp = $.$mol_regexp.from([begin, { date: [{ year }, dash, { month }] }, dash, { day }, end]);
+            const found = [...regexp.parse('2020-01-02')];
+            $.$mol_assert_like(found, [{
+                    date: '2020-01',
+                    year: '2020',
+                    month: '01',
+                    day: '02',
+                }]);
+        },
+        'parse multiple'() {
+            const { digit } = $.$mol_regexp;
+            const regexp = $.$mol_regexp.from({ digit });
+            $.$mol_assert_like([...regexp.parse('123')], [
+                { digit: '1' },
+                { digit: '2' },
+                { digit: '3' },
+            ]);
+        },
+        'variants'() {
+            const { begin, or, end } = $.$mol_regexp;
+            const sexism = $.$mol_regexp.from([begin, 'sex = ', { sex: ['male', or, 'female'] }, end]);
+            $.$mol_assert_like([...sexism.parse('sex = male')], [{ sex: 'male' }]);
+            $.$mol_assert_like([...sexism.parse('sex = female')], [{ sex: 'female' }]);
+            $.$mol_assert_like([...sexism.parse('sex = malefemale')], [{ 0: 'sex = malefemale' }]);
+        },
+        'force after'() {
+            const { letter, force_after } = $.$mol_regexp;
+            const regexp = $.$mol_regexp.from([letter, force_after('.')]);
+            $.$mol_assert_equal(regexp.exec('x.')[0], 'x');
+            $.$mol_assert_equal(regexp.exec('x5'), null);
+        },
+        'forbid after'() {
+            const { letter, forbid_after } = $.$mol_regexp;
+            const regexp = $.$mol_regexp.from([letter, forbid_after('.')]);
+            $.$mol_assert_equal(regexp.exec('x.'), null);
+            $.$mol_assert_equal(regexp.exec('x5')[0], 'x');
+        },
+        'byte except'() {
+            const { byte_except, letter, tab } = $.$mol_regexp;
+            const name = byte_except(letter, tab);
+            $.$mol_assert_equal(name.exec('a'), null);
+            $.$mol_assert_equal(name.exec('\t'), null);
+            $.$mol_assert_equal(name.exec('(')[0], '(');
+        },
+    });
+})($ || ($ = {}));
+//regexp.test.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_test({
+        '$mol_syntax2_md_flow'() {
+            const check = (input, right) => {
+                const tokens = [];
+                $.$mol_syntax2_md_flow.tokenize(input, (...token) => tokens.push(token));
+                $.$mol_assert_like(JSON.stringify(tokens), JSON.stringify(right));
+            };
+            check('Hello,\nWorld..\r\n\r\n\nof Love!', [
+                ['block', 'Hello,\nWorld..\r\n\r\n\n', ['Hello,\nWorld..', '\r\n\r\n\n'], 0],
+                ['block', 'of Love!', ['of Love!', ''], 19],
+            ]);
+            check('# Header1\n\nHello!\n\n## Header2', [
+                ['header', '# Header1\n\n', ['#', ' ', 'Header1', '\n\n'], 0],
+                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 11],
+                ['header', '## Header2', ['##', ' ', 'Header2', ''], 19],
+            ]);
+            check('```\nstart()\n```\n\n```js\nrestart()\n```\n\nHello!\n\n```\nstop()\n```', [
+                ['code', '```\nstart()\n```\n\n', ['```', '', 'start()\n', '```', '\n\n'], 0],
+                ['code', '```js\nrestart()\n```\n\n', ['```', 'js', 'restart()\n', '```', '\n\n'], 17],
+                ['block', 'Hello!\n\n', ['Hello!', '\n\n'], 38],
+                ['code', '```\nstop()\n```', ['```', '', 'stop()\n', '```', ''], 46],
+            ]);
+            check('| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n| Cell11 | Cell12\n| Cell21 | Cell22\n', [
+                ['table', '| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n\n', ['| header1 | header2\n|----|----\n| Cell11 | Cell12\n| Cell21 | Cell22\n', '\n'], 0],
+                ['table', '| Cell11 | Cell12\n| Cell21 | Cell22\n', ['| Cell11 | Cell12\n| Cell21 | Cell22\n', ''], 68],
+            ]);
+        },
+    });
+})($ || ($ = {}));
+//md.test.js.map
 ;
 "use strict";
 var $;

@@ -1010,55 +1010,6 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_plugin extends $mol_view {
-        dom_node(next?: Element): Element;
-        attr_static(): {
-            [key: string]: string | number | boolean;
-        };
-        event(): {
-            [key: string]: (event: Event) => void;
-        };
-        render(): void;
-    }
-}
-
-declare namespace $ {
-    class $mol_theme_auto extends $mol_plugin {
-        attr(): {
-            mol_theme: string;
-        };
-        theme(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_state_local<Value> extends $mol_object {
-        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-        static native(): Storage | {
-            getItem(key: string): any;
-            setItem(key: string, value: string): void;
-            removeItem(key: string): void;
-        };
-        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
-        prefix(): string;
-        value(key: string, next?: Value): Value | null;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $ {
-    function $mol_lights(this: $, next?: boolean): boolean;
-}
-
-declare namespace $.$$ {
-    class $mol_theme_auto extends $.$mol_theme_auto {
-        theme(): "$mol_theme_light" | "$mol_theme_dark";
-    }
-}
-
-declare namespace $ {
 }
 
 declare namespace $ {
@@ -1134,6 +1085,93 @@ declare namespace $.$$ {
         file_name(): string;
         minimal_height(): number;
         target(): "_self" | "_blank";
+    }
+}
+
+declare namespace $ {
+    class $mol_page extends $mol_view {
+        sub(): readonly any[];
+        Title(): $mol_view;
+        tools(): readonly $mol_view_content[];
+        Tools(): $mol_view;
+        head(): readonly any[];
+        Head(): $mol_view;
+        body_scroll_top(val?: any): any;
+        body(): readonly $mol_view_content[];
+        Body(): $$.$mol_scroll;
+        foot(): readonly $mol_view[];
+        Foot(): $mol_view;
+    }
+}
+
+declare namespace $.$$ {
+}
+
+declare namespace $.$$ {
+    class $mol_page extends $.$mol_page {
+        body_scroll_top(next?: number): number;
+    }
+}
+
+declare namespace $ {
+    class $mol_store<Data> extends $mol_object2 {
+        data_default?: Data | undefined;
+        constructor(data_default?: Data | undefined);
+        data(next?: Data): Data;
+        snapshot(next?: string): string;
+        value<Key extends keyof Data>(key: Key, next?: Data[Key]): NonNullable<Data[Key]>;
+        sub<Key extends keyof Data, Lens extends $mol_store<Data[Key]> = $mol_store<NonNullable<Data[Key]>>>(key: Key, lens?: Lens): NonNullable<Lens>;
+        reset(): void;
+        active(): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_plugin extends $mol_view {
+        dom_node(next?: Element): Element;
+        attr_static(): {
+            [key: string]: string | number | boolean;
+        };
+        event(): {
+            [key: string]: (event: Event) => void;
+        };
+        render(): void;
+    }
+}
+
+declare namespace $ {
+    class $mol_theme_auto extends $mol_plugin {
+        attr(): {
+            mol_theme: string;
+        };
+        theme(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_state_local<Value> extends $mol_object {
+        static 'native()': Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+        static native(): Storage | {
+            getItem(key: string): any;
+            setItem(key: string, value: string): void;
+            removeItem(key: string): void;
+        };
+        static value<Value>(key: string, next?: Value, force?: $mol_mem_force): Value | null;
+        prefix(): string;
+        value(key: string, next?: Value): Value | null;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    function $mol_lights(this: $, next?: boolean): boolean;
+}
+
+declare namespace $.$$ {
+    class $mol_theme_auto extends $.$mol_theme_auto {
+        theme(): "$mol_theme_light" | "$mol_theme_dark";
     }
 }
 
@@ -1618,27 +1656,20 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
-    class $mol_page extends $mol_view {
+    class $mol_paragraph extends $mol_view {
+        line_height(): number;
+        letter_width(): number;
+        width_limit(): number;
         sub(): readonly any[];
-        Title(): $mol_view;
-        tools(): readonly $mol_view_content[];
-        Tools(): $mol_view;
-        head(): readonly any[];
-        Head(): $mol_view;
-        body_scroll_top(val?: any): any;
-        body(): readonly $mol_view_content[];
-        Body(): $$.$mol_scroll;
-        foot(): readonly $mol_view[];
-        Foot(): $mol_view;
     }
 }
 
 declare namespace $.$$ {
-}
-
-declare namespace $.$$ {
-    class $mol_page extends $.$mol_page {
-        body_scroll_top(next?: number): number;
+    class $mol_paragraph extends $.$mol_paragraph {
+        maximal_width(): number;
+        width_limit(): number;
+        minimal_width(): number;
+        minimal_height(): number;
     }
 }
 
@@ -1649,10 +1680,455 @@ declare namespace $ {
 }
 
 declare namespace $ {
+    class $mol_float extends $mol_view {
+        style(): {
+            minHeight: string;
+        };
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_icon_chevron extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_check_expand extends $mol_check {
+        minimal_height(): number;
+        Icon(): $mol_icon_chevron;
+        level(): number;
+        style(): {
+            paddingLeft: string;
+        };
+        checked(val?: any): any;
+        enabled(): boolean;
+        level_style(): string;
+        expanded(val?: any): any;
+        expandable(): boolean;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_check_expand extends $.$mol_check_expand {
+        level_style(): string;
+        expandable(): boolean;
+    }
+}
+
+declare namespace $ {
+    class $mol_dimmer extends $mol_paragraph {
+        haystack(): string;
+        needle(): string;
+        sub(): readonly $mol_view_content[];
+        Low(id: any): $$.$mol_paragraph;
+        High(id: any): $$.$mol_paragraph;
+        parts(): readonly $mol_view_content[];
+        string(id: any): string;
+    }
+}
+
+declare namespace $ {
+    type $mol_type_intersect<Union> = (Union extends any ? (_: Union) => void : never) extends ((_: infer Intersection) => void) ? Intersection : never;
+}
+
+declare namespace $ {
+    type $mol_regexp_source = string | RegExp | {
+        [key in string]: $mol_regexp_source;
+    } | readonly [$mol_regexp_source, ...$mol_regexp_source[]];
+    type $mol_regexp_groups<Source extends $mol_regexp_source> = Source extends string ? {} : Source extends $mol_regexp<infer Groups> ? Groups : Source extends $mol_regexp_source[] ? $mol_type_intersect<{
+        [key in Extract<keyof Source, number>]: $mol_regexp_groups<Source[key]>;
+    }[Extract<keyof Source, number>]> : Source extends RegExp ? {} : Source extends {
+        readonly [key in string]: $mol_regexp_source;
+    } ? Extract<$mol_type_intersect<{
+        [key in Extract<keyof Source, string>]: string;
+    } | {
+        [key in keyof Source]: $mol_regexp_groups<Source[key]>;
+    }[keyof Source]>, Record<string, string>> : never;
+    class $mol_regexp<Groups extends Record<string, string>> extends RegExp {
+        readonly groups: (Extract<keyof Groups, string>)[];
+        constructor(source: string, flags?: string, groups?: (Extract<keyof Groups, string>)[]);
+        get parse(): (str: string, from?: number) => Generator<{ [key in keyof Groups]: string; } & {
+            [key: number]: string;
+        }, null | undefined, unknown>;
+        static repeat<Source extends $mol_regexp_source>(source: Source, min?: number, max?: number): $mol_regexp<$mol_regexp_groups<Source>>;
+        static repeat_greedy<Source extends $mol_regexp_source>(source: Source, min?: number, max?: number): $mol_regexp<$mol_regexp_groups<Source>>;
+        static optional<Source extends $mol_regexp_source>(source: Source): $mol_regexp<$mol_regexp_groups<Source>>;
+        static force_after(source: $mol_regexp_source): $mol_regexp<Record<string, string>>;
+        static forbid_after(source: $mol_regexp_source): $mol_regexp<Record<string, string>>;
+        static from<Source extends $mol_regexp_source>(source: Source, { ignoreCase, multiline }?: Partial<Pick<RegExp, 'ignoreCase' | 'multiline'>>): $mol_regexp<$mol_regexp_groups<Source>>;
+        static char_code(code: number): $mol_regexp<Record<string, string>>;
+        static byte_except(...forbidden: readonly [$mol_regexp_source, ...$mol_regexp_source[]]): $mol_regexp<never>;
+        static byte: $mol_regexp<{}>;
+        static digit: $mol_regexp<{}>;
+        static letter: $mol_regexp<{}>;
+        static space: $mol_regexp<{}>;
+        static tab: $mol_regexp<{}>;
+        static slash_back: $mol_regexp<{}>;
+        static word_break: $mol_regexp<{}>;
+        static line_end: $mol_regexp<{}>;
+        static begin: $mol_regexp<{}>;
+        static end: $mol_regexp<{}>;
+        static or: $mol_regexp<{}>;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_dimmer extends $.$mol_dimmer {
+        parts(): any[];
+        strings(): string[];
+        string(index: number): string;
+        view_find(check: (path: $mol_view, text?: string) => boolean, path?: $mol_view[]): Generator<$mol_view[]>;
+    }
+}
+
+declare namespace $ {
+    class $mol_grid extends $mol_scroll {
+        row_height(): number;
+        row_ids(): readonly string[][];
+        row_id(index: any): any;
+        col_ids(): readonly any[];
+        records(): {};
+        record(id: any): any;
+        hierarchy(): any;
+        hierarchy_col(): string;
+        sub(): readonly any[];
+        Head(): $mol_grid_row;
+        Row(id: any): $mol_grid_row;
+        Cell(id: any): $mol_view;
+        cell(id: any): any;
+        Cell_text(id: any): $mol_grid_cell;
+        Cell_number(id: any): $mol_grid_number;
+        Col_head(id: any): $mol_float;
+        Cell_branch(id: any): $$.$mol_check_expand;
+        Cell_content(id: any): readonly any[];
+        rows(): readonly $mol_view[];
+        Table(): $mol_grid_table;
+        head_cells(): readonly $mol_view[];
+        cells(id: any): readonly $mol_view[];
+        cell_content(id: any): readonly $mol_view_content[];
+        cell_content_text(id: any): readonly $mol_view_content[];
+        cell_content_number(id: any): readonly $mol_view_content[];
+        col_head_content(id: any): readonly $mol_view_content[];
+        cell_level(id: any): number;
+        cell_expanded(id: any, val?: any): any;
+        needle(): string;
+        cell_value(id: any): string;
+        Cell_dimmer(id: any): $$.$mol_dimmer;
+    }
+    class $mol_grid_table extends $mol_list {
+        dom_name(): string;
+    }
+    class $mol_grid_row extends $mol_view {
+        dom_name(): string;
+        sub(): readonly $mol_view[];
+        cells(): readonly $mol_view[];
+    }
+    class $mol_grid_cell extends $mol_view {
+        dom_name(): string;
+        minimal_height(): number;
+    }
+    class $mol_grid_number extends $mol_grid_cell {
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    interface $mol_grid_node {
+        id: string;
+        parent: $mol_grid_node;
+        sub: $mol_grid_node[];
+    }
+    class $mol_grid extends $.$mol_grid {
+        head_cells(): readonly $mol_view[];
+        col_head_content(colId: string): readonly string[];
+        rows(): readonly $mol_view[];
+        cells(row_id: string[]): readonly $mol_view[];
+        col_type(col_id: string): "number" | "text" | "branch";
+        Cell(id: {
+            row: string[];
+            col: string;
+        }): $mol_view;
+        cell_content(id: {
+            row: string[];
+            col: string;
+        }): any[];
+        records(): any;
+        record(id: string): any;
+        record_ids(): string[];
+        row_id(index: number): string;
+        col_ids(): readonly string[];
+        hierarchy(): {
+            [id: string]: $mol_grid_node;
+        };
+        row_sub_ids(row: string[]): string[][];
+        row_root_id(): string[];
+        cell_level(id: {
+            row: string[];
+        }): number;
+        row_ids(): readonly string[][];
+        row_expanded(row_id: string[], next?: boolean): boolean | null;
+        row_expanded_default(row_id: string[]): boolean;
+        cell_expanded(id: {
+            row: string[];
+        }, next?: boolean): boolean | null;
+    }
+}
+
+declare namespace $ {
+    class $mol_image extends $mol_view {
+        dom_name(): string;
+        field(): {
+            src: string;
+            alt: string;
+        };
+        uri(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
+    class $mol_link_iconed extends $mol_link {
+        sub(): readonly any[];
+        content(): readonly any[];
+        host(): string;
+        icon(): string;
+        Icon(): $mol_image;
+        title(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_link_iconed extends $.$mol_link_iconed {
+        icon(): string;
+        host(): string;
+        title(): string;
+        sub(): any[];
+    }
+}
+
+declare namespace $ {
+    class $mol_text extends $mol_list {
+        uri_base(): string;
+        text(): string;
+        tokens(): readonly any[];
+        Quote(id: any): $$.$mol_text;
+        Row(id: any): $mol_text_row;
+        Span(id: any): $mol_text_span;
+        Link(id: any): $mol_text_link;
+        Image(id: any): $mol_text_image;
+        Header(id: any): $mol_text_header;
+        Table(id: any): $$.$mol_grid;
+        Table_row(id: any): $mol_grid_row;
+        Table_cell(id: any): $mol_grid_cell;
+        Table_cell_head(id: any): $mol_float;
+        quote_text(id: any): string;
+        block_content(id: any): readonly any[];
+        block_type(id: any): string;
+        link_target(id: any): string;
+        header_level(id: any): number;
+        header_content(id: any): readonly any[];
+        table_head_cells(id: any): readonly any[];
+        table_rows(id: any): readonly any[];
+        table_cells(id: any): readonly any[];
+        table_cell_content(id: any): readonly any[];
+    }
+    class $mol_text_row extends $mol_paragraph {
+        attr(): {
+            mol_text_type: string;
+        };
+        type(): string;
+    }
+    class $mol_text_header extends $mol_paragraph {
+        dom_name(): string;
+        attr(): {
+            mol_text_header_level: any;
+        };
+        sub(): readonly any[];
+        level(val?: any): any;
+        content(): readonly any[];
+    }
+    class $mol_text_span extends $mol_paragraph {
+        dom_name(): string;
+        attr(): {
+            mol_text_type: any;
+        };
+        sub(): any;
+        type(val?: any): any;
+        content(val?: any): any;
+    }
+    class $mol_text_link extends $mol_link_iconed {
+        attr(): {
+            mol_text_type: any;
+            href: string;
+            title: string;
+            target: string;
+            download: string;
+            mol_link_current: boolean;
+        };
+        uri(): any;
+        content(val?: any): any;
+        type(val?: any): any;
+        link(val?: any): any;
+    }
+    class $mol_text_image extends $mol_view {
+        dom_name(): string;
+        attr(): {
+            allowfullscreen: boolean;
+            mol_text_type: any;
+            data: any;
+        };
+        sub(): readonly any[];
+        type(val?: any): any;
+        link(val?: any): any;
+        title(val?: any): any;
+    }
+}
+
+declare namespace $ {
+    class $mol_syntax2<Lexems extends {
+        [name: string]: RegExp;
+    }> {
+        lexems: Lexems;
+        constructor(lexems: Lexems);
+        rules: {
+            regExp: RegExp;
+            name: string;
+            size: number;
+        }[];
+        regexp: RegExp;
+        tokenize(text: string, handle: (name: string, found: string, chunks: string[], offset: number) => void): void;
+        parse(text: string, handlers: {
+            [key in keyof Lexems | '']: (found: string, chunks: string[], offset: number) => void;
+        }): void;
+    }
+}
+
+declare namespace $ {
+    var $mol_syntax2_md_flow: $mol_syntax2<{
+        quote: RegExp;
+        header: RegExp;
+        list: RegExp;
+        code: RegExp;
+        'code-indent': RegExp;
+        table: RegExp;
+        block: RegExp;
+    }>;
+    var $mol_syntax2_md_line: $mol_syntax2<{
+        strong: RegExp;
+        emphasis: RegExp;
+        code3: RegExp;
+        code: RegExp;
+        strike: RegExp;
+        'text-link': RegExp;
+        'image-link': RegExp;
+    }>;
+    const $mol_syntax2_md_code: $mol_syntax2<{
+        'code-docs': RegExp;
+        'code-comment-block': RegExp;
+        'code-link': RegExp;
+        'code-comment-inline': RegExp;
+        'code-string': RegExp;
+        'code-number': RegExp;
+        'code-call': RegExp;
+        'code-field': RegExp;
+        'code-keyword': RegExp;
+        'code-global': RegExp;
+        'code-decorator': RegExp;
+        'code-tag': RegExp;
+        'code-punctuation': RegExp;
+    }>;
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_text extends $.$mol_text {
+        tokens(): readonly {
+            name: string;
+            found: string;
+            chunks: string[];
+        }[];
+        rows(): ($mol_grid | $mol_text | $mol_text_row | $mol_text_header)[];
+        header_level(index: number): number;
+        header_content(index: number): $mol_view[];
+        quote_text(index: number): string;
+        block_type(index: number): string;
+        cell_contents(indexBlock: number): string[][];
+        table_rows(blockId: number): $mol_grid_row[];
+        table_head_cells(blockId: number): $mol_float[];
+        table_cells(id: {
+            block: number;
+            row: number;
+        }): $mol_grid_cell[];
+        table_cell_content(id: {
+            block: number;
+            row: number;
+            cell: number;
+        }): $mol_view[];
+        uri_base(): string;
+        uri_resolve(uri: string): string;
+        text2spans(prefix: string, text: string): $mol_view[];
+        code2spans(prefix: string, text: string): $mol_view[];
+        block_content(indexBlock: number): ($mol_view | string)[];
+    }
+}
+
+declare namespace $ {
     class $my_smz extends $mol_book2 {
         plugins(): readonly any[];
         Placeholder(): any;
         pages(): readonly any[];
+        Work_link(id: any): $$.$mol_link;
+        Details(id: any): $$.$mol_page;
+        work_store(): $mol_store<{
+            123: {
+                title: string;
+                description: string;
+                worker: string;
+                approver: string;
+                amount: number;
+                currency: string;
+                is_payed: boolean;
+            };
+            456: {
+                title: string;
+                description: string;
+                worker: string;
+                approver: string;
+                amount: number;
+                currency: string;
+                is_payed: boolean;
+            };
+        }>;
+        person_store(): $mol_store<{
+            tra: {
+                name: string;
+            };
+            vas: {
+                name: string;
+            };
+            mar: {
+                name: string;
+            };
+        }>;
         Theme(): $$.$mol_theme_auto;
         Source(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;
@@ -1660,14 +2136,33 @@ declare namespace $ {
         Payed_link(): $$.$mol_link;
         Filters(): $$.$mol_list;
         Menu(): $$.$mol_page;
+        work_list(): readonly $mol_view[];
+        Work_list(): $$.$mol_list;
         Works(): $$.$mol_page;
+        id(id: any): string;
+        work_title(id: any): string;
+        Title(id: any): $$.$mol_paragraph;
         Details_close_icon(): $mol_icon_cross;
         Details_close(): $$.$mol_link;
-        Details(): $$.$mol_page;
+        work_description(id: any): string;
+        Description(id: any): $$.$mol_text;
     }
 }
 
 declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $my_smz extends $.$my_smz {
+        work_current(): string | null;
+        filter_payed(): boolean;
+        pages(): $mol_page[];
+        work_list(): $mol_link[];
+        work_title(id: string): any;
+        work_description(id: string): any;
+        work_payed(id: string): any;
+        id(id: string): string;
+    }
 }
 
 declare namespace $ {

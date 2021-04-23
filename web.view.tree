@@ -15,9 +15,6 @@ $mol_book2 $mol_scroll
 	minimal_width 0
 	Placeholder $mol_view
 
-$mol_theme_auto $mol_plugin
-	attr * mol_theme <= theme \
-
 $mol_link $mol_view
 	dom_name \a
 	attr *
@@ -33,6 +30,26 @@ $mol_link $mol_view
 	event *
 		^
 		click?event <=> click?event <=> event_click?event null
+
+$mol_page $mol_view
+	sub /
+		<= Head $mol_view
+			minimal_height 64
+			sub <= head /
+				<= Title $mol_view
+					dom_name \h1
+					sub /
+						<= title
+				<= Tools $mol_view
+					sub <= tools /$mol_view_content
+		<= Body $mol_scroll
+			scroll_top?val <=> body_scroll_top?val 0
+			sub <= body /$mol_view_content
+		<= Foot $mol_view
+			sub <= foot /$mol_view
+
+$mol_theme_auto $mol_plugin
+	attr * mol_theme <= theme \
 
 $mol_svg $mol_view
 	dom_name \svg
@@ -135,24 +152,170 @@ $mol_list $mol_view
 		0
 		0
 
-$mol_page $mol_view
-	sub /
-		<= Head $mol_view
-			minimal_height 64
-			sub <= head /
-				<= Title $mol_view
-					dom_name \h1
-					sub /
-						<= title
-				<= Tools $mol_view
-					sub <= tools /$mol_view_content
-		<= Body $mol_scroll
-			scroll_top?val <=> body_scroll_top?val 0
-			sub <= body /$mol_view_content
-		<= Foot $mol_view
-			sub <= foot /$mol_view
+$mol_paragraph $mol_view
+	line_height 24
+	letter_width 8
+	width_limit Infinity
+	sub / <= title
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mol_float $mol_view
+	style *
+		^
+		minHeight \auto
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
+
+$mol_check_expand $mol_check
+	minimal_height 40
+	Icon $mol_icon_chevron
+	level 0
+	style *
+		^
+		paddingLeft <= level_style \0px
+	checked?val <=> expanded?val false
+	enabled <= expandable false
+
+$mol_dimmer $mol_paragraph
+	haystack \
+	needle \
+	sub <= parts /$mol_view_content
+	Low!id $mol_paragraph
+		sub /
+			<= string!id \
+	High!id $mol_paragraph
+		sub /
+			<= string!id \
+
+$mol_grid $mol_scroll
+	row_height 32
+	row_ids /string[]
+	row_id!index null
+	col_ids /
+	records *
+	record!id null
+	hierarchy null
+	hierarchy_col \
+	-
+	sub /
+		<= Head
+		<= Table $mol_grid_table
+			sub <= rows /$mol_view
+	Head $mol_grid_row
+		cells <= head_cells /$mol_view
+	Row!id $mol_grid_row
+		minimal_height <= row_height
+		cells <= cells!id /$mol_view
+	-
+	Cell!id $mol_view
+	cell!id null
+	Cell_text!id $mol_grid_cell
+		sub <= cell_content_text!id <= cell_content!id /$mol_view_content
+	Cell_number!id $mol_grid_number
+		sub <= cell_content_number!id <= cell_content!id /$mol_view_content
+	Col_head!id $mol_float
+		dom_name \th
+		sub <= col_head_content!id /$mol_view_content
+	Cell_branch!id $mol_check_expand
+		level <= cell_level!id 0
+		label <= cell_content!id /$mol_view_content
+		expanded?val <=> cell_expanded!id?val false
+	Cell_content!id /
+		<= Cell_dimmer!id $mol_dimmer
+			needle <= needle \
+			haystack <= cell_value!id \
+
+$mol_grid_table $mol_list
+	dom_name \table
+
+$mol_grid_row $mol_view
+	dom_name \tr
+	sub <= cells /$mol_view
+
+$mol_grid_cell $mol_view
+	dom_name \td
+	minimal_height 40
+
+$mol_grid_number $mol_grid_cell
+
+$mol_image $mol_view
+	dom_name \img
+	field *
+		^
+		src <= uri \
+		alt <= title
+
+$mol_link_iconed $mol_link
+	sub /
+		<= Icon $mol_image
+			uri <= icon \
+			title \
+	content /
+		<= title <= uri
+	host \
+
+$mol_text $mol_list
+	uri_base \
+	text \
+	tokens /
+	Quote!id $mol_text
+		text <= quote_text!id \
+	Row!id $mol_text_row
+		sub <= block_content!id /
+		type <= block_type!id \
+	Span!id $mol_text_span
+	Link!id $mol_text_link
+		target <= link_target!id \_blank
+	Image!id $mol_text_image
+	Header!id $mol_text_header
+		level <= header_level!id 0
+		content <= header_content!id /
+	Table!id $mol_grid
+		head_cells <= table_head_cells!id /
+		rows <= table_rows!id /
+	Table_row!id $mol_grid_row
+		cells <= table_cells!id /
+	Table_cell!id $mol_grid_cell
+		sub <= table_cell_content!id /
+	Table_cell_head!id $mol_float
+		sub <= table_cell_content!id /
+
+$mol_text_row $mol_paragraph
+	attr *
+		^
+		mol_text_type <= type \
+
+$mol_text_header $mol_paragraph
+	dom_name \h
+	attr *
+		^
+		mol_text_header_level <= level?val 0
+	sub <= content /
+
+$mol_text_span $mol_paragraph
+	dom_name \span
+	attr *
+		^
+		mol_text_type <= type?val \
+	sub <= content?val /
+
+$mol_text_link $mol_link_iconed
+	attr *
+		^
+		mol_text_type <= type?val \
+	uri <= link?val \
+	content?val /
+
+$mol_text_image $mol_view
+	dom_name \object
+	attr *
+		^
+		allowfullscreen true
+		mol_text_type <= type?val \
+		data <= link?val \
+	sub /
+		<= title?val \
 
 $my_smz $mol_book2
 	plugins /
@@ -168,18 +331,59 @@ $my_smz $mol_book2
 				<= Filters $mol_list rows /
 					<= Unpayed_link $mol_link
 						title @ \Unpayed
-						arg * payed null
+						arg *
+							payed null
+							work null
 					<= Payed_link $mol_link
 						title @ \Payed
-						arg * payed \
+						arg *
+							payed \
+							work null
 		<= Works $mol_page
 			title @ \Works
-		<= Details $mol_page
-			title @ \Work Details
-			tools /
-				<= Details_close $mol_link
-					sub /
-						<= Details_close_icon $mol_icon_cross
+			body /
+				<= Work_list $mol_list
+					rows <= work_list /$mol_view
+	Work_link!id $mol_link
+		arg * work <= id!id \
+		sub /
+			<= Title!id $mol_paragraph
+				sub /
+					<= work_title!id \
+	Details!id $mol_page
+		title <= work_title!id \
+		tools /
+			<= Details_close $mol_link
+				arg * work null
+				sub /
+					<= Details_close_icon $mol_icon_cross
+		body /
+			<= Description!id $mol_text
+				text <= work_description!id \
+	work_store $mol_store / *
+		123 *
+			title \Промо компания в Ютубе
+			description \В 10 роликах добавлена реклама по 1 минуте.
+			worker \tra
+			approver \vas
+			amount 50000
+			currency \RUB
+			is_payed false
+		456 *
+			title \Игрушка для дочки директора
+			description \Хендмейд **гипоэллергенная** плюшевая игрушка в виде розового единорога.
+			worker \mar
+			approver \vas
+			amount 5000
+			currency \RUB
+			is_payed true
+	person_store $mol_store / *
+		tra *
+			name \Тимур Трахтенберг
+		vas *
+			name \Бригадир Васян
+		mar *
+			name \Мария Искусница
 
 $mol_view_tree_test_attributes_super $mol_view
 	some *
