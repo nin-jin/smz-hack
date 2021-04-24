@@ -8,8 +8,8 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
-		filter_payed() {
-			return this.$.$mol_state_arg.value( 'payed' )
+		filter_status() {
+			return this.$.$mol_state_arg.value( 'status' )
 		}
 
 		@ $mol_mem
@@ -31,8 +31,12 @@ namespace $.$$ {
 
 			let works = this.work_all()
 
-			const payed = this.filter_payed()
-			if( payed ) works = works.filter( id => String( this.work_payed( id ) ) === payed )
+			const status = this.filter_status()
+			if( status ) works = works.filter( id => String( this.work_status( id ) ) === status )
+			
+			works.sort( ( a, b )=> {
+				return this.work_deadline( a ) > this.work_deadline( b ) ? 1 : -1
+			} )
 			
 			return works.map( id => this.Work_link( id ) )
 		}
@@ -45,15 +49,21 @@ namespace $.$$ {
 			return this.work_store().sub( id as any ).value( 'description' )
 		}
 
-		work_payed( id: string ) {
-			return this.work_store().sub( id as any ).value( 'is_payed' )
+		work_status( id: string, next?: boolean ) {
+			return this.work_store().sub( id as any ).value( 'status', next )
 		}
 
+		@ $mol_mem
 		work_amount( id: string ) {
 			const data = this.work_store().sub( id as any )
 			const unit = new $mol_unit( data.value( 'amount' ) )
 			unit.postfix = ()=> ' ' + data.value( 'currency' )
 			return unit
+		}
+
+		@ $mol_mem
+		work_deadline( id: string ) {
+			return this.work_store().sub( id as any ).value( 'deadline' )
 		}
 
 		id( id: string ) {

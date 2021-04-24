@@ -3,22 +3,22 @@
 	"name": "Work Payment",
 	"icons": [
 		{
-			"src": "../../my/smz/logo/logo_16.png",
+			"src": "../../mol/logo/logo_16.png",
 			"type": "image/png",
 			"sizes": "16x16"
 		},
 		{
-			"src": "../../my/smz/logo/logo_48.png",
+			"src": "../../mol/logo/logo_48.png",
 			"type": "image/png",
 			"sizes": "48x48"
 		},
 		{
-			"src": "../../my/smz/logo/logo_96.png",
+			"src": "../../mol/logo/logo_96.png",
 			"type": "image/png",
 			"sizes": "96x96"
 		},
 		{
-			"src": "../../my/smz/logo/logo_192.png",
+			"src": "../../mol/logo/logo_192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}
