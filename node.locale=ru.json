@@ -5,6 +5,8 @@
 	"$my_smz_Menu_title": "Фильтры",
 	"$my_smz_Payed_link_title": "Оплачено",
 	"$my_smz_Paying_link_title": "Оплачивается",
+	"$my_smz_Quick_allow_hint": "Оплатить",
 	"$my_smz_Unpayed_link_title": "Не оплачено",
-	"$my_smz_Works_title": "Сделанные работы"
+	"$my_smz_Works_title": "Сделанные работы",
+	"$my_smz_filter_Allow_hint": "Оплатить всё"
 }
