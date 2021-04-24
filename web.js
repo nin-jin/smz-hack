@@ -7692,7 +7692,7 @@ var $;
                 for (let i = 0; i < 1000; i++) {
                     data[$.$mol_guid()] = {
                         title: "Фирменный кофе",
-                        description: "В 10 роликах добавлена реклама по 1 минуте.",
+                        description: "Взболтнуть, но не смешивать.",
                         worker: "tra",
                         approver: "mar",
                         amount: "100",
