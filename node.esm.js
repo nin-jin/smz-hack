@@ -7978,7 +7978,7 @@ var $;
                         title: "Фирменный кофе",
                         description: "Взболтнуть, но не смешивать.",
                         worker: "tra",
-                        approver: "mar",
+                        approver: "vas",
                         amount: "100",
                         currency: "RUB",
                         status: "payed",
