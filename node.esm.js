@@ -6679,6 +6679,54 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_labeler extends $.$mol_list {
+        rows() {
+            return [
+                this.Label(),
+                this.Content()
+            ];
+        }
+        label() {
+            return [
+                this.title()
+            ];
+        }
+        Label() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 24;
+            obj.sub = () => this.label();
+            return obj;
+        }
+        content() {
+            return [];
+        }
+        Content() {
+            const obj = new this.$.$mol_view();
+            obj.minimal_height = () => 24;
+            obj.sub = () => this.content();
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Label", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_labeler.prototype, "Content", null);
+    $.$mol_labeler = $mol_labeler;
+})($ || ($ = {}));
+//labeler.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/labeler/labeler.view.css", "[mol_labeler] {\n\tdisplay: flex;\n\tflex-direction: column;\n\talign-items: stretch;\n\tcursor: inherit;\n}\n\n[mol_labeler_label] {\n\tcolor: var(--mol_theme_shade);\n}\n\n[mol_labeler_content] {\n\tdisplay: flex;\n}\n");
+})($ || ($ = {}));
+//labeler.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_cost extends $.$mol_view {
         value() {
             return null;
@@ -6844,6 +6892,7 @@ var $;
             ];
             obj.body = () => [
                 this.Description(id),
+                this.Info(id),
                 this.Allow(id)
             ];
             return obj;
@@ -7080,6 +7129,45 @@ var $;
             obj.text = () => this.work_description(id);
             return obj;
         }
+        work_worker_name(id) {
+            return "";
+        }
+        Worker_name(id) {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$my_smz_Worker_name_title');
+            obj.content = () => [
+                this.work_worker_name(id)
+            ];
+            return obj;
+        }
+        work_approver_name(id) {
+            return "";
+        }
+        Approver_name(id) {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$my_smz_Approver_name_title');
+            obj.content = () => [
+                this.work_approver_name(id)
+            ];
+            return obj;
+        }
+        Deadline(id) {
+            const obj = new this.$.$mol_labeler();
+            obj.title = () => this.$.$mol_locale.text('$my_smz_Deadline_title');
+            obj.content = () => [
+                this.work_deadline(id)
+            ];
+            return obj;
+        }
+        Info(id) {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.Worker_name(id),
+                this.Approver_name(id),
+                this.Deadline(id)
+            ];
+            return obj;
+        }
         Allow_label(id) {
             return this.$.$mol_locale.text('$my_smz_Allow_label');
         }
@@ -7179,6 +7267,18 @@ var $;
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Description", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Worker_name", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Approver_name", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Deadline", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Info", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Allow_amount", null);
@@ -7795,7 +7895,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_info] {\n\tpadding: .75rem;\n\tflex-wrap: wrap;\n}\n\n[my_smz_info]>* {\n\tmargin: .75rem;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
@@ -7860,6 +7960,14 @@ var $;
             work_deadline(id) {
                 return this.work_store().sub(id).value('deadline');
             }
+            work_worker_name(id) {
+                const approver = this.work_store().sub(id).value('worker');
+                return this.person_store().sub(approver).value('name');
+            }
+            work_approver_name(id) {
+                const approver = this.work_store().sub(id).value('approver');
+                return this.person_store().sub(approver).value('name');
+            }
             id(id) {
                 return id;
             }
@@ -7899,11 +8007,17 @@ var $;
             $.$mol_mem
         ], $my_smz.prototype, "work_list", null);
         __decorate([
-            $.$mol_mem
+            $.$mol_mem_key
         ], $my_smz.prototype, "work_amount", null);
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "work_deadline", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $my_smz.prototype, "work_worker_name", null);
+        __decorate([
+            $.$mol_mem_key
+        ], $my_smz.prototype, "work_approver_name", null);
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "work_store", null);

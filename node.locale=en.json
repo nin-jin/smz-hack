@@ -2,11 +2,14 @@
 	"$mol_lights_toggle_hint": "Toggle lights",
 	"$mol_link_source_hint": "Source code",
 	"$my_smz_Allow_label": "Pay ",
+	"$my_smz_Approver_name_title": "Approver",
+	"$my_smz_Deadline_title": "Deadline",
 	"$my_smz_Menu_title": "Filters",
 	"$my_smz_Payed_link_title": "Payed",
 	"$my_smz_Paying_link_title": "Paying",
 	"$my_smz_Quick_allow_hint": "Pay",
 	"$my_smz_Unpayed_link_title": "Unpayed",
+	"$my_smz_Worker_name_title": "Worker",
 	"$my_smz_Works_title": "Done Works",
 	"$my_smz_filter_Allow_hint": "Pay All"
 }

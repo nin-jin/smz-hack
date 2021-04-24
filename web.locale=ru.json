@@ -2,11 +2,14 @@
 	"$mol_lights_toggle_hint": "Переключатель света",
 	"$mol_link_source_hint": "Исходные коды",
 	"$my_smz_Allow_label": "Оплатить ",
+	"$my_smz_Approver_name_title": "Принял",
+	"$my_smz_Deadline_title": "Оплатить до",
 	"$my_smz_Menu_title": "Фильтры",
 	"$my_smz_Payed_link_title": "Оплачено",
 	"$my_smz_Paying_link_title": "Оплачивается",
 	"$my_smz_Quick_allow_hint": "Оплатить",
 	"$my_smz_Unpayed_link_title": "Не оплачено",
+	"$my_smz_Worker_name_title": "Сделал",
 	"$my_smz_Works_title": "Сделанные работы",
 	"$my_smz_filter_Allow_hint": "Оплатить всё"
 }

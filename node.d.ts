@@ -2104,6 +2104,19 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_labeler extends $mol_list {
+        rows(): readonly any[];
+        label(): readonly $mol_view_content[];
+        Label(): $mol_view;
+        content(): readonly any[];
+        Content(): $mol_view;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $ {
     class $mol_cost extends $mol_view {
         value(): any;
         sub(): readonly any[];
@@ -2235,6 +2248,12 @@ declare namespace $ {
         Details_close(id: any): $$.$mol_link;
         work_description(id: any): string;
         Description(id: any): $$.$mol_text;
+        work_worker_name(id: any): string;
+        Worker_name(id: any): $mol_labeler;
+        work_approver_name(id: any): string;
+        Approver_name(id: any): $mol_labeler;
+        Deadline(id: any): $mol_labeler;
+        Info(id: any): $mol_view;
         Allow_label(id: any): string;
         Allow_amount(id: any): $$.$mol_cost;
         Allow(id: any): $mol_button_major;
@@ -2385,6 +2404,8 @@ declare namespace $.$$ {
         work_approver(id: string, next?: string): any;
         work_amount(id: string): $mol_unit;
         work_deadline(id: string): any;
+        work_worker_name(id: string): any;
+        work_approver_name(id: string): any;
         id(id: string): string;
         work_store(): $mol_store<{
             123: {

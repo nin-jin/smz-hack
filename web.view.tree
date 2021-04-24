@@ -321,6 +321,16 @@ $mol_text_image $mol_view
 	sub /
 		<= title?val \
 
+$mol_labeler $mol_list
+	rows /
+		<= Label $mol_view
+			minimal_height 24
+			sub <= label /$mol_view_content
+				<= title
+		<= Content $mol_view
+			minimal_height 24
+			sub <= content /
+
 $mol_cost $mol_view
 	value null
 	sub /
@@ -409,6 +419,19 @@ $my_smz $mol_book2
 		body /
 			<= Description!id $mol_text
 				text <= work_description!id \
+			<= Info!id $mol_view sub /
+				<= Worker_name!id $mol_labeler
+					title @ \Worker
+					content /
+						<= work_worker_name!id \
+				<= Approver_name!id $mol_labeler
+					title @ \Approver
+					content /
+						<= work_approver_name!id \
+				<= Deadline!id $mol_labeler
+					title @ \Deadline
+					content /
+						<= work_deadline!id \
 			<= Allow!id $mol_button_major
 				click?value <=> allow!id?value null
 				sub /
