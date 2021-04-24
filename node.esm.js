@@ -6854,7 +6854,7 @@ var $;
                     title: "Промо компания в Ютубе",
                     description: "В 10 роликах добавлена реклама по 1 минуте.",
                     worker: "tra",
-                    approver: "vas",
+                    approver: "petr",
                     amount: 50000,
                     currency: "RUB",
                     status: "unpayed",
@@ -6891,6 +6891,9 @@ var $;
                 vas: {
                     name: "Бригадир Васян"
                 },
+                petr: {
+                    name: "Бригадир Пётр"
+                },
                 mar: {
                     name: "Мария Искусница"
                 }
@@ -6913,29 +6916,64 @@ var $;
         Unpayed_link() {
             const obj = new this.$.$my_smz_filter();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Unpayed_link_title');
-            obj.status = () => "unpayed";
+            obj.arg = () => ({
+                status: "unpayed",
+                work: null
+            });
             return obj;
         }
         Paying_link() {
             const obj = new this.$.$my_smz_filter();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Paying_link_title');
-            obj.status = () => "paying";
+            obj.arg = () => ({
+                status: "paying",
+                work: null
+            });
             obj.Allow = () => null;
             return obj;
         }
         Payed_link() {
             const obj = new this.$.$my_smz_filter();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Payed_link_title');
-            obj.status = () => "payed";
+            obj.arg = () => ({
+                status: "payed",
+                work: null
+            });
             obj.Allow = () => null;
             return obj;
         }
-        Filters() {
+        Filters_status() {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Unpayed_link(),
                 this.Paying_link(),
                 this.Payed_link()
+            ];
+            return obj;
+        }
+        Vas_link() {
+            const obj = new this.$.$my_smz_filter();
+            obj.title = () => "Бригадир Васян";
+            obj.arg = () => ({
+                approver: "vas",
+                work: null
+            });
+            return obj;
+        }
+        Petr_link() {
+            const obj = new this.$.$my_smz_filter();
+            obj.title = () => "Бригадир Пётр";
+            obj.arg = () => ({
+                approver: "petr",
+                work: null
+            });
+            return obj;
+        }
+        Filters_approver() {
+            const obj = new this.$.$mol_list();
+            obj.rows = () => [
+                this.Vas_link(),
+                this.Petr_link()
             ];
             return obj;
         }
@@ -6947,7 +6985,8 @@ var $;
                 this.Lights()
             ];
             obj.body = () => [
-                this.Filters()
+                this.Filters_status(),
+                this.Filters_approver()
             ];
             return obj;
         }
@@ -7091,7 +7130,16 @@ var $;
     ], $my_smz.prototype, "Payed_link", null);
     __decorate([
         $.$mol_mem
-    ], $my_smz.prototype, "Filters", null);
+    ], $my_smz.prototype, "Filters_status", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "Vas_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "Petr_link", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "Filters_approver", null);
     __decorate([
         $.$mol_mem
     ], $my_smz.prototype, "Menu", null);
@@ -7139,20 +7187,11 @@ var $;
     ], $my_smz.prototype, "Allow", null);
     $.$my_smz = $my_smz;
     class $my_smz_filter extends $.$mol_link {
-        arg() {
-            return {
-                status: this.status(),
-                work: null
-            };
-        }
         sub() {
             return [
                 this.Title(),
                 this.Allow()
             ];
-        }
-        status() {
-            return "paying";
         }
         Title() {
             const obj = new this.$.$mol_paragraph();
@@ -7200,7 +7239,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_page_head] {\n\tbox-shadow: none;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
@@ -7215,6 +7254,9 @@ var $;
             }
             filter_status() {
                 return this.$.$mol_state_arg.value('status');
+            }
+            filter_approver() {
+                return this.$.$mol_state_arg.value('approver');
             }
             pages() {
                 return [
@@ -7231,6 +7273,9 @@ var $;
                 const status = this.filter_status();
                 if (status)
                     works = works.filter(id => String(this.work_status(id)) === status);
+                const approver = this.filter_approver();
+                if (approver)
+                    works = works.filter(id => String(this.work_approver(id)) === approver);
                 works.sort((a, b) => {
                     return this.work_deadline(a) > this.work_deadline(b) ? 1 : -1;
                 });
@@ -7244,6 +7289,9 @@ var $;
             }
             work_status(id, next) {
                 return this.work_store().sub(id).value('status', next);
+            }
+            work_approver(id, next) {
+                return this.work_store().sub(id).value('approver', next);
             }
             work_amount(id) {
                 const data = this.work_store().sub(id);
@@ -7264,6 +7312,9 @@ var $;
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "filter_status", null);
+        __decorate([
+            $.$mol_mem
+        ], $my_smz.prototype, "filter_approver", null);
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "pages", null);

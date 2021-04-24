@@ -2200,6 +2200,9 @@ declare namespace $ {
             vas: {
                 name: string;
             };
+            petr: {
+                name: string;
+            };
             mar: {
                 name: string;
             };
@@ -2210,7 +2213,10 @@ declare namespace $ {
         Unpayed_link(): $my_smz_filter;
         Paying_link(): $my_smz_filter;
         Payed_link(): $my_smz_filter;
-        Filters(): $$.$mol_list;
+        Filters_status(): $$.$mol_list;
+        Vas_link(): $my_smz_filter;
+        Petr_link(): $my_smz_filter;
+        Filters_approver(): $$.$mol_list;
         Menu(): $$.$mol_page;
         work_list(): readonly $mol_view[];
         Work_list(): $$.$mol_list;
@@ -2234,12 +2240,7 @@ declare namespace $ {
         Allow(id: any): $mol_button_major;
     }
     class $my_smz_filter extends $mol_link {
-        arg(): {
-            status: string;
-            work: any;
-        };
         sub(): readonly any[];
-        status(): string;
         Title(): $$.$mol_paragraph;
         allow(value?: any): any;
         Allow_icon(): $mol_icon_check_circle;
@@ -2254,12 +2255,14 @@ declare namespace $.$$ {
     class $my_smz extends $.$my_smz {
         work_current(): string | null;
         filter_status(): string | null;
+        filter_approver(): string | null;
         pages(): $mol_page[];
         work_all(): string[];
         work_list(): $mol_link[];
         work_title(id: string): any;
         work_description(id: string): any;
-        work_status(id: string, next?: boolean): any;
+        work_status(id: string, next?: string): any;
+        work_approver(id: string, next?: string): any;
         work_amount(id: string): $mol_unit;
         work_deadline(id: string): any;
         id(id: string): string;

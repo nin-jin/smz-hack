@@ -350,18 +350,35 @@ $my_smz $mol_book2
 				<= Source $mol_link_source uri \https://github.com/nin-jin/smz-hack
 				<= Lights $mol_lights_toggle
 			body /
-				<= Filters $mol_list rows /
+				<= Filters_status $mol_list rows /
 					<= Unpayed_link $my_smz_filter
 						title @ \Unpayed
-						status \unpayed
+						arg *
+							status \unpayed
+							work null
 					<= Paying_link $my_smz_filter
 						title @ \Paying
-						status \paying
+						arg *
+							status \paying
+							work null
 						Allow null
 					<= Payed_link $my_smz_filter
 						title @ \Payed
-						status \payed
+						arg *
+							status \payed
+							work null
 						Allow null
+				<= Filters_approver $mol_list rows /
+					<= Vas_link $my_smz_filter
+						title \Бригадир Васян
+						arg *
+							approver \vas
+							work null
+					<= Petr_link $my_smz_filter
+						title \Бригадир Пётр
+						arg *
+							approver \petr
+							work null
 		<= Works $mol_page
 			title @ \Done Works
 			body /
@@ -403,7 +420,7 @@ $my_smz $mol_book2
 			title \Промо компания в Ютубе
 			description \В 10 роликах добавлена реклама по 1 минуте.
 			worker \tra
-			approver \vas
+			approver \petr
 			amount 50000
 			currency \RUB
 			status \unpayed
@@ -436,13 +453,12 @@ $my_smz $mol_book2
 			name \Тимур Трахтенберг
 		vas *
 			name \Бригадир Васян
+		petr *
+			name \Бригадир Пётр
 		mar *
 			name \Мария Искусница
 
 $my_smz_filter $mol_link
-	arg *
-		status <= status \paying
-		work null
 	sub /
 		<= Title $mol_paragraph
 			sub /
