@@ -42,11 +42,14 @@ namespace $.$$ {
 			const approver = this.filter_approver()
 			if( approver ) works = works.filter( id => String( this.work_approver( id ) ) === approver )
 			
-			works.sort( ( a, b )=> {
-				return this.work_deadline( a ) > this.work_deadline( b ) ? 1 : -1
-			} )
+			const now = new $mol_time_moment().toString( 'YYYY-MM-DD' )
+			const past = works.filter( id => this.work_deadline( id ) < now )
+			const future = works.filter( id => this.work_deadline( id ) >= now )
 			
-			return works.map( id => this.Work_link( id ) )
+			past.sort( ( a, b )=> this.work_deadline( a ) > this.work_deadline( b ) ? +1 : -1 )
+			future.sort( ( a, b )=> this.work_deadline( a ) > this.work_deadline( b ) ? -1 : +1 )
+			
+			return [ ... future, ... past ].map( id => this.Work_link( id ) )
 		}
 
 		work_title( id: string ) {
@@ -80,6 +83,24 @@ namespace $.$$ {
 
 		id( id: string ) {
 			return id
+		}
+		
+		@ $mol_mem
+		work_store() {
+			const data = super.work_store().data_default!
+			for( let i = 0; i < 1000; i ++ ) {
+				data[ $mol_guid() ] = {
+					title: "Фирменный кофе",
+					description: "В 10 роликах добавлена реклама по 1 минуте.",
+					worker: "tra",
+					approver: "mar",
+					amount: "100",
+					currency: "RUB",
+					status: "payed",
+					deadline: "2020-04-26",
+				}
+			}
+			return new $mol_store( data )
 		}
 
 	}
