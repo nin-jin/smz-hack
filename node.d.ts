@@ -1674,38 +1674,14 @@ declare namespace $ {
 }
 
 declare namespace $ {
-    class $mol_cost extends $mol_view {
-        value(): any;
-        sub(): readonly any[];
-        prefix(): string;
-        Prefix(): $mol_view;
-        value_view(): string;
-        Value(): $mol_view;
-        postfix(): string;
-        Postfix(): $mol_view;
+    class $mol_icon_check extends $mol_icon {
+        path(): string;
     }
 }
 
 declare namespace $ {
-    class $mol_unit_money extends $mol_unit {
-    }
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix(): string;
-    }
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix(): string;
-    }
-}
-
-declare namespace $ {
-}
-
-declare namespace $.$$ {
-    class $mol_cost extends $.$mol_cost {
-        value(): $mol_unit_money;
-        prefix(): string;
-        value_view(): string;
-        postfix(): string;
+    class $mol_icon_check_circle extends $mol_icon {
+        path(): string;
     }
 }
 
@@ -2128,6 +2104,42 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_cost extends $mol_view {
+        value(): any;
+        sub(): readonly any[];
+        prefix(): string;
+        Prefix(): $mol_view;
+        value_view(): string;
+        Value(): $mol_view;
+        postfix(): string;
+        Postfix(): $mol_view;
+    }
+}
+
+declare namespace $ {
+    class $mol_unit_money extends $mol_unit {
+    }
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix(): string;
+    }
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix(): string;
+    }
+}
+
+declare namespace $ {
+}
+
+declare namespace $.$$ {
+    class $mol_cost extends $.$mol_cost {
+        value(): $mol_unit_money;
+        prefix(): string;
+        value_view(): string;
+        postfix(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_button_major extends $mol_button_typed {
         attr(): {
             mol_theme: string;
@@ -2157,7 +2169,8 @@ declare namespace $ {
                 approver: string;
                 amount: number;
                 currency: string;
-                is_payed: boolean;
+                status: string;
+                deadline: string;
             };
             456: {
                 title: string;
@@ -2166,7 +2179,18 @@ declare namespace $ {
                 approver: string;
                 amount: number;
                 currency: string;
-                is_payed: boolean;
+                status: string;
+                deadline: string;
+            };
+            789: {
+                title: string;
+                description: string;
+                worker: string;
+                approver: string;
+                amount: number;
+                currency: string;
+                status: string;
+                deadline: string;
             };
         }>;
         person_store(): $mol_store<{
@@ -2183,8 +2207,9 @@ declare namespace $ {
         Theme(): $$.$mol_theme_auto;
         Source(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;
-        Unpayed_link(): $$.$mol_link;
-        Payed_link(): $$.$mol_link;
+        Unpayed_link(): $my_smz_filter;
+        Paying_link(): $my_smz_filter;
+        Payed_link(): $my_smz_filter;
         Filters(): $$.$mol_list;
         Menu(): $$.$mol_page;
         work_list(): readonly $mol_view[];
@@ -2193,16 +2218,32 @@ declare namespace $ {
         id(id: any): string;
         work_title(id: any): string;
         Work_title(id: any): $$.$mol_paragraph;
+        work_deadline(id: any): string;
+        Work_deadline(id: any): $$.$mol_paragraph;
         work_amount(id: any): $mol_unit;
-        Work_amount(id: any): $$.$mol_cost;
+        Work_amount(id: any): $$.$mol_paragraph;
+        allow(id: any, value?: any): any;
+        Quick_allow_icon(id: any): $mol_icon_check_circle;
+        Quick_allow(id: any): $mol_button_minor;
         Details_close_icon(id: any): $mol_icon_cross;
         Details_close(id: any): $$.$mol_link;
         work_description(id: any): string;
         Description(id: any): $$.$mol_text;
-        allow(event?: any): any;
         Allow_label(id: any): string;
         Allow_amount(id: any): $$.$mol_cost;
         Allow(id: any): $mol_button_major;
+    }
+    class $my_smz_filter extends $mol_link {
+        arg(): {
+            status: string;
+            work: any;
+        };
+        sub(): readonly any[];
+        status(): string;
+        Title(): $$.$mol_paragraph;
+        allow(value?: any): any;
+        Allow_icon(): $mol_icon_check_circle;
+        Allow(): $mol_button_minor;
     }
 }
 
@@ -2212,14 +2253,15 @@ declare namespace $ {
 declare namespace $.$$ {
     class $my_smz extends $.$my_smz {
         work_current(): string | null;
-        filter_payed(): string | null;
+        filter_status(): string | null;
         pages(): $mol_page[];
         work_all(): string[];
         work_list(): $mol_link[];
         work_title(id: string): any;
         work_description(id: string): any;
-        work_payed(id: string): any;
+        work_status(id: string, next?: boolean): any;
         work_amount(id: string): $mol_unit;
+        work_deadline(id: string): any;
         id(id: string): string;
     }
 }

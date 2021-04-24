@@ -5344,112 +5344,26 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    class $mol_cost extends $.$mol_view {
-        value() {
-            return null;
-        }
-        sub() {
-            return [
-                this.Prefix(),
-                this.Value(),
-                this.Postfix()
-            ];
-        }
-        prefix() {
-            return "";
-        }
-        Prefix() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.prefix()
-            ];
-            return obj;
-        }
-        value_view() {
-            return "";
-        }
-        Value() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.value_view()
-            ];
-            return obj;
-        }
-        postfix() {
-            return "";
-        }
-        Postfix() {
-            const obj = new this.$.$mol_view();
-            obj.sub = () => [
-                this.postfix()
-            ];
-            return obj;
+    class $mol_icon_check extends $.$mol_icon {
+        path() {
+            return "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
         }
     }
-    __decorate([
-        $.$mol_mem
-    ], $mol_cost.prototype, "Prefix", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_cost.prototype, "Value", null);
-    __decorate([
-        $.$mol_mem
-    ], $mol_cost.prototype, "Postfix", null);
-    $.$mol_cost = $mol_cost;
+    $.$mol_icon_check = $mol_icon_check;
 })($ || ($ = {}));
-//cost.view.tree.js.map
+//check.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    class $mol_unit_money extends $.$mol_unit {
-    }
-    $.$mol_unit_money = $mol_unit_money;
-    class $mol_unit_money_usd extends $mol_unit_money {
-        prefix() {
-            return '$';
+    class $mol_icon_check_circle extends $.$mol_icon {
+        path() {
+            return "M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z";
         }
     }
-    $.$mol_unit_money_usd = $mol_unit_money_usd;
-    class $mol_unit_money_rur extends $mol_unit_money {
-        postfix() {
-            return ' ₽';
-        }
-    }
-    $.$mol_unit_money_rur = $mol_unit_money_rur;
+    $.$mol_icon_check_circle = $mol_icon_check_circle;
 })($ || ($ = {}));
-//money.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    $.$mol_style_attach("mol/cost/cost.view.css", "[mol_cost] {\n\twhite-space: nowrap;\n\tfont-weight: normal;\n\tdisplay: inline;\n}\n\n[mol_cost_main] {\n\tdisplay: inline;\n}\n\n[mol_cost_prefix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n}\n\n[mol_cost_value] {\n\tdisplay: inline;\n}\n\n[mol_cost_postfix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n\twhite-space: pre-wrap;\n}\n");
-})($ || ($ = {}));
-//cost.view.css.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    var $$;
-    (function ($$) {
-        class $mol_cost extends $.$mol_cost {
-            value() {
-                return null;
-            }
-            prefix() {
-                return this.value().prefix();
-            }
-            value_view() {
-                return this.value().value_view();
-            }
-            postfix() {
-                return this.value().postfix();
-            }
-        }
-        $$.$mol_cost = $mol_cost;
-    })($$ = $.$$ || ($.$$ = {}));
-})($ || ($ = {}));
-//cost.view.js.map
+//circle.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -6757,6 +6671,116 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_cost extends $.$mol_view {
+        value() {
+            return null;
+        }
+        sub() {
+            return [
+                this.Prefix(),
+                this.Value(),
+                this.Postfix()
+            ];
+        }
+        prefix() {
+            return "";
+        }
+        Prefix() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.prefix()
+            ];
+            return obj;
+        }
+        value_view() {
+            return "";
+        }
+        Value() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.value_view()
+            ];
+            return obj;
+        }
+        postfix() {
+            return "";
+        }
+        Postfix() {
+            const obj = new this.$.$mol_view();
+            obj.sub = () => [
+                this.postfix()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Prefix", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Value", null);
+    __decorate([
+        $.$mol_mem
+    ], $mol_cost.prototype, "Postfix", null);
+    $.$mol_cost = $mol_cost;
+})($ || ($ = {}));
+//cost.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_unit_money extends $.$mol_unit {
+    }
+    $.$mol_unit_money = $mol_unit_money;
+    class $mol_unit_money_usd extends $mol_unit_money {
+        prefix() {
+            return '$';
+        }
+    }
+    $.$mol_unit_money_usd = $mol_unit_money_usd;
+    class $mol_unit_money_rur extends $mol_unit_money {
+        postfix() {
+            return ' ₽';
+        }
+    }
+    $.$mol_unit_money_rur = $mol_unit_money_rur;
+})($ || ($ = {}));
+//money.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    $.$mol_style_attach("mol/cost/cost.view.css", "[mol_cost] {\n\twhite-space: nowrap;\n\tfont-weight: normal;\n\tdisplay: inline;\n}\n\n[mol_cost_main] {\n\tdisplay: inline;\n}\n\n[mol_cost_prefix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n}\n\n[mol_cost_value] {\n\tdisplay: inline;\n}\n\n[mol_cost_postfix] {\n\tfont-weight: lighter;\n\tdisplay: inline;\n\twhite-space: pre-wrap;\n}\n");
+})($ || ($ = {}));
+//cost.view.css.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    var $$;
+    (function ($$) {
+        class $mol_cost extends $.$mol_cost {
+            value() {
+                return null;
+            }
+            prefix() {
+                return this.value().prefix();
+            }
+            value_view() {
+                return this.value().value_view();
+            }
+            postfix() {
+                return this.value().postfix();
+            }
+        }
+        $$.$mol_cost = $mol_cost;
+    })($$ = $.$$ || ($.$$ = {}));
+})($ || ($ = {}));
+//cost.view.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_button_major extends $.$mol_button_typed {
         attr() {
             return Object.assign(Object.assign({}, super.attr()), { mol_theme: "$mol_theme_accent" });
@@ -6798,7 +6822,9 @@ var $;
             });
             obj.sub = () => [
                 this.Work_title(id),
-                this.Work_amount(id)
+                this.Work_deadline(id),
+                this.Work_amount(id),
+                this.Quick_allow(id)
             ];
             return obj;
         }
@@ -6823,7 +6849,8 @@ var $;
                     approver: "vas",
                     amount: 50000,
                     currency: "RUB",
-                    is_payed: false
+                    status: "unpayed",
+                    deadline: "2021-04-26"
                 },
                 456: {
                     title: "Игрушка для дочки директора",
@@ -6832,7 +6859,18 @@ var $;
                     approver: "vas",
                     amount: 5000,
                     currency: "RUB",
-                    is_payed: true
+                    status: "payed",
+                    deadline: "2021-04-25"
+                },
+                789: {
+                    title: "Бэкенд для SMZ Hack",
+                    description: "# API\n\n- Получение списка счетов\n- Подтверждение счёта\n- Подсчёт статистики",
+                    worker: "mar",
+                    approver: "vas",
+                    amount: 15000,
+                    currency: "USD",
+                    status: "paying",
+                    deadline: "2021-04-28"
                 }
             });
             return obj;
@@ -6865,27 +6903,30 @@ var $;
             return obj;
         }
         Unpayed_link() {
-            const obj = new this.$.$mol_link();
+            const obj = new this.$.$my_smz_filter();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Unpayed_link_title');
-            obj.arg = () => ({
-                payed: "false",
-                work: null
-            });
+            obj.status = () => "unpayed";
+            return obj;
+        }
+        Paying_link() {
+            const obj = new this.$.$my_smz_filter();
+            obj.title = () => this.$.$mol_locale.text('$my_smz_Paying_link_title');
+            obj.status = () => "paying";
+            obj.Allow = () => null;
             return obj;
         }
         Payed_link() {
-            const obj = new this.$.$mol_link();
+            const obj = new this.$.$my_smz_filter();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Payed_link_title');
-            obj.arg = () => ({
-                payed: "true",
-                work: null
-            });
+            obj.status = () => "payed";
+            obj.Allow = () => null;
             return obj;
         }
         Filters() {
             const obj = new this.$.$mol_list();
             obj.rows = () => [
                 this.Unpayed_link(),
+                this.Paying_link(),
                 this.Payed_link()
             ];
             return obj;
@@ -6931,13 +6972,43 @@ var $;
             ];
             return obj;
         }
+        work_deadline(id) {
+            return "";
+        }
+        Work_deadline(id) {
+            const obj = new this.$.$mol_paragraph();
+            obj.sub = () => [
+                this.work_deadline(id)
+            ];
+            return obj;
+        }
         work_amount(id) {
             const obj = new this.$.$mol_unit();
             return obj;
         }
         Work_amount(id) {
-            const obj = new this.$.$mol_cost();
-            obj.value = () => this.work_amount(id);
+            const obj = new this.$.$mol_paragraph();
+            obj.sub = () => [
+                this.work_amount(id)
+            ];
+            return obj;
+        }
+        allow(id, value) {
+            if (value !== undefined)
+                return value;
+            return null;
+        }
+        Quick_allow_icon(id) {
+            const obj = new this.$.$mol_icon_check_circle();
+            return obj;
+        }
+        Quick_allow(id) {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$my_smz_Quick_allow_hint');
+            obj.click = (value) => this.allow(id, value);
+            obj.sub = () => [
+                this.Quick_allow_icon(id)
+            ];
             return obj;
         }
         Details_close_icon(id) {
@@ -6962,11 +7033,6 @@ var $;
             obj.text = () => this.work_description(id);
             return obj;
         }
-        allow(event) {
-            if (event !== undefined)
-                return event;
-            return null;
-        }
         Allow_label(id) {
             return this.$.$mol_locale.text('$my_smz_Allow_label');
         }
@@ -6977,7 +7043,7 @@ var $;
         }
         Allow(id) {
             const obj = new this.$.$mol_button_major();
-            obj.click = (event) => this.allow(event);
+            obj.click = (value) => this.allow(id, value);
             obj.sub = () => [
                 this.Allow_label(id),
                 this.Allow_amount(id)
@@ -7011,6 +7077,9 @@ var $;
     ], $my_smz.prototype, "Unpayed_link", null);
     __decorate([
         $.$mol_mem
+    ], $my_smz.prototype, "Paying_link", null);
+    __decorate([
+        $.$mol_mem
     ], $my_smz.prototype, "Payed_link", null);
     __decorate([
         $.$mol_mem
@@ -7029,10 +7098,22 @@ var $;
     ], $my_smz.prototype, "Work_title", null);
     __decorate([
         $.$mol_mem_key
+    ], $my_smz.prototype, "Work_deadline", null);
+    __decorate([
+        $.$mol_mem_key
     ], $my_smz.prototype, "work_amount", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Work_amount", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "allow", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Quick_allow_icon", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "Quick_allow", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Details_close_icon", null);
@@ -7043,22 +7124,75 @@ var $;
         $.$mol_mem_key
     ], $my_smz.prototype, "Description", null);
     __decorate([
-        $.$mol_mem
-    ], $my_smz.prototype, "allow", null);
-    __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Allow_amount", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Allow", null);
     $.$my_smz = $my_smz;
+    class $my_smz_filter extends $.$mol_link {
+        arg() {
+            return {
+                status: this.status(),
+                work: null
+            };
+        }
+        sub() {
+            return [
+                this.Title(),
+                this.Allow()
+            ];
+        }
+        status() {
+            return "paying";
+        }
+        Title() {
+            const obj = new this.$.$mol_paragraph();
+            obj.sub = () => [
+                this.title(),
+                " (1)"
+            ];
+            return obj;
+        }
+        allow(value) {
+            if (value !== undefined)
+                return value;
+            return null;
+        }
+        Allow_icon() {
+            const obj = new this.$.$mol_icon_check_circle();
+            return obj;
+        }
+        Allow() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$my_smz_filter_Allow_hint');
+            obj.click = (value) => this.allow(value);
+            obj.sub = () => [
+                this.Allow_icon()
+            ];
+            return obj;
+        }
+    }
+    __decorate([
+        $.$mol_mem
+    ], $my_smz_filter.prototype, "Title", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz_filter.prototype, "allow", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz_filter.prototype, "Allow_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz_filter.prototype, "Allow", null);
+    $.$my_smz_filter = $my_smz_filter;
 })($ || ($ = {}));
 //smz.view.tree.js.map
 ;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_filters] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_works] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_work_list] {\n\tpadding: var(--mol_gap_block);\n}\n\n[my_smz_work_link] {\n\tjustify-content: space-between;\n}\n\n[my_smz_details] {\n\tflex: 30rem 1 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_page_head] {\n\tbox-shadow: none;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
@@ -7071,8 +7205,8 @@ var $;
             work_current() {
                 return this.$.$mol_state_arg.value('work');
             }
-            filter_payed() {
-                return this.$.$mol_state_arg.value('payed');
+            filter_status() {
+                return this.$.$mol_state_arg.value('status');
             }
             pages() {
                 return [
@@ -7086,9 +7220,12 @@ var $;
             }
             work_list() {
                 let works = this.work_all();
-                const payed = this.filter_payed();
-                if (payed)
-                    works = works.filter(id => String(this.work_payed(id)) === payed);
+                const status = this.filter_status();
+                if (status)
+                    works = works.filter(id => String(this.work_status(id)) === status);
+                works.sort((a, b) => {
+                    return this.work_deadline(a) > this.work_deadline(b) ? 1 : -1;
+                });
                 return works.map(id => this.Work_link(id));
             }
             work_title(id) {
@@ -7097,14 +7234,17 @@ var $;
             work_description(id) {
                 return this.work_store().sub(id).value('description');
             }
-            work_payed(id) {
-                return this.work_store().sub(id).value('is_payed');
+            work_status(id, next) {
+                return this.work_store().sub(id).value('status', next);
             }
             work_amount(id) {
                 const data = this.work_store().sub(id);
                 const unit = new $.$mol_unit(data.value('amount'));
                 unit.postfix = () => ' ' + data.value('currency');
                 return unit;
+            }
+            work_deadline(id) {
+                return this.work_store().sub(id).value('deadline');
             }
             id(id) {
                 return id;
@@ -7115,7 +7255,7 @@ var $;
         ], $my_smz.prototype, "work_current", null);
         __decorate([
             $.$mol_mem
-        ], $my_smz.prototype, "filter_payed", null);
+        ], $my_smz.prototype, "filter_status", null);
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "pages", null);
@@ -7125,6 +7265,12 @@ var $;
         __decorate([
             $.$mol_mem
         ], $my_smz.prototype, "work_list", null);
+        __decorate([
+            $.$mol_mem
+        ], $my_smz.prototype, "work_amount", null);
+        __decorate([
+            $.$mol_mem
+        ], $my_smz.prototype, "work_deadline", null);
         $$.$my_smz = $my_smz;
     })($$ = $.$$ || ($.$$ = {}));
 })($ || ($ = {}));

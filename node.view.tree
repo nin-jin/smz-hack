@@ -158,18 +158,9 @@ $mol_paragraph $mol_view
 	width_limit Infinity
 	sub / <= title
 
-$mol_cost $mol_view
-	value null
-	sub /
-		<= Prefix $mol_view
-			sub /
-				<= prefix \
-		<= Value $mol_view
-			sub /
-				<= value_view \
-		<= Postfix $mol_view
-			sub /
-				<= postfix \
+$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
+
+$mol_icon_check_circle $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
@@ -330,6 +321,19 @@ $mol_text_image $mol_view
 	sub /
 		<= title?val \
 
+$mol_cost $mol_view
+	value null
+	sub /
+		<= Prefix $mol_view
+			sub /
+				<= prefix \
+		<= Value $mol_view
+			sub /
+				<= value_view \
+		<= Postfix $mol_view
+			sub /
+				<= postfix \
+
 $mol_button_major $mol_button_typed
 	attr *
 		^
@@ -347,16 +351,17 @@ $my_smz $mol_book2
 				<= Lights $mol_lights_toggle
 			body /
 				<= Filters $mol_list rows /
-					<= Unpayed_link $mol_link
+					<= Unpayed_link $my_smz_filter
 						title @ \Unpayed
-						arg *
-							payed \false
-							work null
-					<= Payed_link $mol_link
+						status \unpayed
+					<= Paying_link $my_smz_filter
+						title @ \Paying
+						status \paying
+						Allow null
+					<= Payed_link $my_smz_filter
 						title @ \Payed
-						arg *
-							payed \true
-							work null
+						status \payed
+						Allow null
 		<= Works $mol_page
 			title @ \Done Works
 			body /
@@ -368,8 +373,15 @@ $my_smz $mol_book2
 			<= Work_title!id $mol_paragraph
 				sub /
 					<= work_title!id \
-			<= Work_amount!id $mol_cost
-				value <= work_amount!id $mol_unit
+			<= Work_deadline!id $mol_paragraph
+				sub / <= work_deadline!id \
+			<= Work_amount!id $mol_paragraph
+				sub / <= work_amount!id $mol_unit
+			<= Quick_allow!id $mol_button_minor
+				hint @ \Pay
+				click?value <=> allow!id?value null
+				sub /
+					<= Quick_allow_icon!id $mol_icon_check_circle
 	Details!id $mol_page
 		title <= work_title!id \
 		tools /
@@ -381,9 +393,9 @@ $my_smz $mol_book2
 			<= Description!id $mol_text
 				text <= work_description!id \
 			<= Allow!id $mol_button_major
-				click?event <=> allow?event null
+				click?value <=> allow!id?value null
 				sub /
-					<= Allow_label!id @ \Transfer 
+					<= Allow_label!id @ \Pay 
 					<= Allow_amount!id $mol_cost
 						value <= work_amount!id $mol_unit
 	work_store $mol_store / *
@@ -394,7 +406,8 @@ $my_smz $mol_book2
 			approver \vas
 			amount 50000
 			currency \RUB
-			is_payed false
+			status \unpayed
+			deadline \2021-04-26
 		456 *
 			title \Игрушка для дочки директора
 			description \Хендмейд **гипоэллергенная** плюшевая игрушка в виде розового единорога.
@@ -402,7 +415,22 @@ $my_smz $mol_book2
 			approver \vas
 			amount 5000
 			currency \RUB
-			is_payed true
+			status \payed
+			deadline \2021-04-25
+		789 *
+			title \Бэкенд для SMZ Hack
+			description \
+				\# API
+				\
+				\- Получение списка счетов
+				\- Подтверждение счёта
+				\- Подсчёт статистики
+			worker \mar
+			approver \vas
+			amount 15000
+			currency \USD
+			status \paying
+			deadline \2021-04-28
 	person_store $mol_store / *
 		tra *
 			name \Тимур Трахтенберг
@@ -410,6 +438,21 @@ $my_smz $mol_book2
 			name \Бригадир Васян
 		mar *
 			name \Мария Искусница
+
+$my_smz_filter $mol_link
+	arg *
+		status <= status \paying
+		work null
+	sub /
+		<= Title $mol_paragraph
+			sub /
+				<= title
+				\ (1)
+		<= Allow $mol_button_minor
+			hint @ \Pay All
+			click?value <=> allow?value null
+			sub /
+				<= Allow_icon $mol_icon_check_circle
 
 $mol_view_tree_test_attributes_super $mol_view
 	some *
