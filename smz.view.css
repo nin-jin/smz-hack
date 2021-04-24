@@ -7,10 +7,6 @@
 	--mol_theme_hover: #46992B;
 }
 
-[my_smz] [mol_page_head] {
-	box-shadow: none;
-}
-
 [my_smz] [mol_link] {
 	border-radius: .25rem;
 }

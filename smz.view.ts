@@ -13,6 +13,11 @@ namespace $.$$ {
 		}
 
 		@ $mol_mem
+		filter_approver() {
+			return this.$.$mol_state_arg.value( 'approver' )
+		}
+
+		@ $mol_mem
 		pages() {
 			return [
 				this.Menu(),
@@ -34,6 +39,9 @@ namespace $.$$ {
 			const status = this.filter_status()
 			if( status ) works = works.filter( id => String( this.work_status( id ) ) === status )
 			
+			const approver = this.filter_approver()
+			if( approver ) works = works.filter( id => String( this.work_approver( id ) ) === approver )
+			
 			works.sort( ( a, b )=> {
 				return this.work_deadline( a ) > this.work_deadline( b ) ? 1 : -1
 			} )
@@ -49,8 +57,12 @@ namespace $.$$ {
 			return this.work_store().sub( id as any ).value( 'description' )
 		}
 
-		work_status( id: string, next?: boolean ) {
+		work_status( id: string, next?: string ) {
 			return this.work_store().sub( id as any ).value( 'status', next )
+		}
+
+		work_approver( id: string, next?: string ) {
+			return this.work_store().sub( id as any ).value( 'approver', next )
 		}
 
 		@ $mol_mem
