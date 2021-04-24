@@ -71,6 +71,15 @@
 	flex: 30rem 0 0;
 }
 
+[my_smz_info] {
+	padding: .75rem;
+	flex-wrap: wrap;
+}
+
+[my_smz_info]>* {
+	margin: .75rem;
+}
+
 [my_smz_allow] {
 	margin: 0 auto;
 }

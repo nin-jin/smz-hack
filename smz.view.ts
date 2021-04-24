@@ -68,7 +68,7 @@ namespace $.$$ {
 			return this.work_store().sub( id as any ).value( 'approver', next )
 		}
 
-		@ $mol_mem
+		@ $mol_mem_key
 		work_amount( id: string ) {
 			const data = this.work_store().sub( id as any )
 			const unit = new $mol_unit( data.value( 'amount' ) )
@@ -80,7 +80,19 @@ namespace $.$$ {
 		work_deadline( id: string ) {
 			return this.work_store().sub( id as any ).value( 'deadline' )
 		}
-
+		
+		@ $mol_mem_key
+		work_worker_name( id: string ) {
+			const approver = this.work_store().sub( id as any ).value( 'worker' )
+			return this.person_store().sub( approver ).value( 'name' )
+		}
+		
+		@ $mol_mem_key
+		work_approver_name( id: string ) {
+			const approver = this.work_store().sub( id as any ).value( 'approver' )
+			return this.person_store().sub( approver ).value( 'name' )
+		}
+		
 		id( id: string ) {
 			return id
 		}
