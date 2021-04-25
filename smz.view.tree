@@ -20,13 +20,11 @@ $my_smz $mol_book2
 						arg *
 							status \paying
 							work null
-						Allow null
 					<= Payed_link $my_smz_filter
 						title @ \Payed
 						arg *
 							status \payed
 							work null
-						Allow null
 				<= Filters_approver $mol_list rows /
 					<= Vas_link $my_smz_filter
 						title \Бригадир Васян
@@ -40,6 +38,13 @@ $my_smz $mol_book2
 							work null
 		<= Works $mol_page
 			title @ \Done Works
+			tools /
+				<= Works_allow $mol_button_minor
+					hint @ \Pay All
+					click?value <=> allow_all?value null
+					sub /
+						<= budget \100 000 
+						<= Works_allow_icon $mol_icon_check_circle
 			body /
 				<= Work_list $mol_list
 					rows <= work_list /$mol_view
@@ -51,12 +56,12 @@ $my_smz $mol_book2
 					<= work_title!id \
 			<= Work_deadline!id $mol_paragraph
 				sub / <= work_deadline!id \
-			<= Work_amount!id $mol_paragraph
-				sub / <= work_amount!id $mol_unit
 			<= Quick_allow!id $mol_button_minor
 				hint @ \Pay
 				click?value <=> allow!id?value null
 				sub /
+					<= work_amount!id $mol_unit
+					\ 
 					<= Quick_allow_icon!id $mol_icon_check_circle
 	Details!id $mol_page
 		title <= work_title!id \
@@ -135,9 +140,6 @@ $my_smz_filter $mol_link
 		<= Title $mol_paragraph
 			sub /
 				<= title
-				\ (1)
-		<= Allow $mol_button_minor
-			hint @ \Pay All
-			click?value <=> allow?value null
+		<= Count $mol_paragraph
 			sub /
-				<= Allow_icon $mol_icon_check_circle
+				\ 1

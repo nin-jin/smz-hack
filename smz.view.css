@@ -25,7 +25,13 @@
 }
 
 [my_smz_works] {
-	flex: 40rem 0 0;
+	flex: 36rem 0 0;
+}
+
+[my_smz_works_total] {
+	padding: .5rem .75rem;
+	color: #66B94B;
+	font-weight: bolder;
 }
 
 [my_smz_filter],
@@ -50,25 +56,22 @@
 	flex: 15rem 1 0;
 }
 
-[my_smz_work_amount] {
-	flex: 6rem 0 0;
-	justify-content: flex-end;
-	color: #66B94B;
-	font-weight: bolder;
-}
-
 [my_smz_work_deadline] {
 	flex: 6rem 0 0;
 }
 
-[my_smz_filter_allow],
+[my_smz_works_allow],
 [my_smz_quick_allow] {
 	margin: 0;
 	color: #66B94B;
+	flex: 7rem 0 0;
+	justify-content: flex-end;
+	font-weight: bolder;
+	text-align: right;
 }
 
 [my_smz_details] {
-	flex: 30rem 0 0;
+	flex: 28rem 0 0;
 }
 
 [my_smz_info] {

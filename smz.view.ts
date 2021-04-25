@@ -72,7 +72,6 @@ namespace $.$$ {
 		work_amount( id: string ) {
 			const data = this.work_store().sub( id as any )
 			const unit = new $mol_unit( data.value( 'amount' ) )
-			unit.postfix = ()=> ' ' + data.value( 'currency' )
 			return unit
 		}
 
