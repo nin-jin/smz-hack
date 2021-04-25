@@ -152,15 +152,15 @@ $mol_list $mol_view
 		0
 		0
 
+$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
+
+$mol_icon_check_circle $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z
+
 $mol_paragraph $mol_view
 	line_height 24
 	letter_width 8
 	width_limit Infinity
 	sub / <= title
-
-$mol_icon_check $mol_icon path \M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z
-
-$mol_icon_check_circle $mol_icon path \M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z
 
 $mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
 
@@ -371,13 +371,11 @@ $my_smz $mol_book2
 						arg *
 							status \paying
 							work null
-						Allow null
 					<= Payed_link $my_smz_filter
 						title @ \Payed
 						arg *
 							status \payed
 							work null
-						Allow null
 				<= Filters_approver $mol_list rows /
 					<= Vas_link $my_smz_filter
 						title \Бригадир Васян
@@ -391,6 +389,13 @@ $my_smz $mol_book2
 							work null
 		<= Works $mol_page
 			title @ \Done Works
+			tools /
+				<= Works_allow $mol_button_minor
+					hint @ \Pay All
+					click?value <=> allow_all?value null
+					sub /
+						<= budget \100 000 
+						<= Works_allow_icon $mol_icon_check_circle
 			body /
 				<= Work_list $mol_list
 					rows <= work_list /$mol_view
@@ -402,12 +407,12 @@ $my_smz $mol_book2
 					<= work_title!id \
 			<= Work_deadline!id $mol_paragraph
 				sub / <= work_deadline!id \
-			<= Work_amount!id $mol_paragraph
-				sub / <= work_amount!id $mol_unit
 			<= Quick_allow!id $mol_button_minor
 				hint @ \Pay
 				click?value <=> allow!id?value null
 				sub /
+					<= work_amount!id $mol_unit
+					\ 
 					<= Quick_allow_icon!id $mol_icon_check_circle
 	Details!id $mol_page
 		title <= work_title!id \
@@ -486,12 +491,9 @@ $my_smz_filter $mol_link
 		<= Title $mol_paragraph
 			sub /
 				<= title
-				\ (1)
-		<= Allow $mol_button_minor
-			hint @ \Pay All
-			click?value <=> allow?value null
+		<= Count $mol_paragraph
 			sub /
-				<= Allow_icon $mol_icon_check_circle
+				\ 1
 
 $mol_view_tree_test_attributes_super $mol_view
 	some *

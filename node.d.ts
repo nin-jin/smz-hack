@@ -1641,6 +1641,18 @@ declare namespace $.$$ {
 }
 
 declare namespace $ {
+    class $mol_icon_check extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
+    class $mol_icon_check_circle extends $mol_icon {
+        path(): string;
+    }
+}
+
+declare namespace $ {
     class $mol_paragraph extends $mol_view {
         line_height(): number;
         letter_width(): number;
@@ -1670,18 +1682,6 @@ declare namespace $ {
         toString(): string;
         static summ(a: $mol_unit, b: $mol_unit): any;
         mult(m: number): this;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_check extends $mol_icon {
-        path(): string;
-    }
-}
-
-declare namespace $ {
-    class $mol_icon_check_circle extends $mol_icon {
-        path(): string;
     }
 }
 
@@ -2231,6 +2231,10 @@ declare namespace $ {
         Petr_link(): $my_smz_filter;
         Filters_approver(): $$.$mol_list;
         Menu(): $$.$mol_page;
+        allow_all(value?: any): any;
+        budget(): string;
+        Works_allow_icon(): $mol_icon_check_circle;
+        Works_allow(): $mol_button_minor;
         work_list(): readonly $mol_view[];
         Work_list(): $$.$mol_list;
         Works(): $$.$mol_page;
@@ -2239,9 +2243,8 @@ declare namespace $ {
         Work_title(id: any): $$.$mol_paragraph;
         work_deadline(id: any): string;
         Work_deadline(id: any): $$.$mol_paragraph;
-        work_amount(id: any): $mol_unit;
-        Work_amount(id: any): $$.$mol_paragraph;
         allow(id: any, value?: any): any;
+        work_amount(id: any): $mol_unit;
         Quick_allow_icon(id: any): $mol_icon_check_circle;
         Quick_allow(id: any): $mol_button_minor;
         Details_close_icon(id: any): $mol_icon_cross;
@@ -2261,9 +2264,7 @@ declare namespace $ {
     class $my_smz_filter extends $mol_link {
         sub(): readonly any[];
         Title(): $$.$mol_paragraph;
-        allow(value?: any): any;
-        Allow_icon(): $mol_icon_check_circle;
-        Allow(): $mol_button_minor;
+        Count(): $$.$mol_paragraph;
     }
 }
 

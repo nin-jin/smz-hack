@@ -5234,6 +5234,30 @@ var $;
 "use strict";
 var $;
 (function ($) {
+    class $mol_icon_check extends $.$mol_icon {
+        path() {
+            return "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
+        }
+    }
+    $.$mol_icon_check = $mol_icon_check;
+})($ || ($ = {}));
+//check.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
+    class $mol_icon_check_circle extends $.$mol_icon {
+        path() {
+            return "M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z";
+        }
+    }
+    $.$mol_icon_check_circle = $mol_icon_check_circle;
+})($ || ($ = {}));
+//circle.view.tree.js.map
+;
+"use strict";
+var $;
+(function ($) {
     class $mol_paragraph extends $.$mol_view {
         line_height() {
             return 24;
@@ -5340,30 +5364,6 @@ var $;
     $.$mol_unit = $mol_unit;
 })($ || ($ = {}));
 //unit.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_check extends $.$mol_icon {
-        path() {
-            return "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
-        }
-    }
-    $.$mol_icon_check = $mol_icon_check;
-})($ || ($ = {}));
-//check.view.tree.js.map
-;
-"use strict";
-var $;
-(function ($) {
-    class $mol_icon_check_circle extends $.$mol_icon {
-        path() {
-            return "M12,2C17.52,2 22,6.48 22,12C22,17.52 17.52,22 12,22C6.48,22 2,17.52 2,12C2,6.48 6.48,2 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.91,10.59L6.5,12L11,16.5Z";
-        }
-    }
-    $.$mol_icon_check_circle = $mol_icon_check_circle;
-})($ || ($ = {}));
-//circle.view.tree.js.map
 ;
 "use strict";
 var $;
@@ -6871,7 +6871,6 @@ var $;
             obj.sub = () => [
                 this.Work_title(id),
                 this.Work_deadline(id),
-                this.Work_amount(id),
                 this.Quick_allow(id)
             ];
             return obj;
@@ -6970,7 +6969,6 @@ var $;
                 status: "paying",
                 work: null
             });
-            obj.Allow = () => null;
             return obj;
         }
         Payed_link() {
@@ -6980,7 +6978,6 @@ var $;
                 status: "payed",
                 work: null
             });
-            obj.Allow = () => null;
             return obj;
         }
         Filters_status() {
@@ -7031,6 +7028,28 @@ var $;
             ];
             return obj;
         }
+        allow_all(value) {
+            if (value !== undefined)
+                return value;
+            return null;
+        }
+        budget() {
+            return "100 000 ";
+        }
+        Works_allow_icon() {
+            const obj = new this.$.$mol_icon_check_circle();
+            return obj;
+        }
+        Works_allow() {
+            const obj = new this.$.$mol_button_minor();
+            obj.hint = () => this.$.$mol_locale.text('$my_smz_Works_allow_hint');
+            obj.click = (value) => this.allow_all(value);
+            obj.sub = () => [
+                this.budget(),
+                this.Works_allow_icon()
+            ];
+            return obj;
+        }
         work_list() {
             return [];
         }
@@ -7042,6 +7061,9 @@ var $;
         Works() {
             const obj = new this.$.$mol_page();
             obj.title = () => this.$.$mol_locale.text('$my_smz_Works_title');
+            obj.tools = () => [
+                this.Works_allow()
+            ];
             obj.body = () => [
                 this.Work_list()
             ];
@@ -7070,21 +7092,14 @@ var $;
             ];
             return obj;
         }
-        work_amount(id) {
-            const obj = new this.$.$mol_unit();
-            return obj;
-        }
-        Work_amount(id) {
-            const obj = new this.$.$mol_paragraph();
-            obj.sub = () => [
-                this.work_amount(id)
-            ];
-            return obj;
-        }
         allow(id, value) {
             if (value !== undefined)
                 return value;
             return null;
+        }
+        work_amount(id) {
+            const obj = new this.$.$mol_unit();
+            return obj;
         }
         Quick_allow_icon(id) {
             const obj = new this.$.$mol_icon_check_circle();
@@ -7095,6 +7110,8 @@ var $;
             obj.hint = () => this.$.$mol_locale.text('$my_smz_Quick_allow_hint');
             obj.click = (value) => this.allow(id, value);
             obj.sub = () => [
+                this.work_amount(id),
+                " ",
                 this.Quick_allow_icon(id)
             ];
             return obj;
@@ -7225,6 +7242,15 @@ var $;
     ], $my_smz.prototype, "Menu", null);
     __decorate([
         $.$mol_mem
+    ], $my_smz.prototype, "allow_all", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "Works_allow_icon", null);
+    __decorate([
+        $.$mol_mem
+    ], $my_smz.prototype, "Works_allow", null);
+    __decorate([
+        $.$mol_mem
     ], $my_smz.prototype, "Work_list", null);
     __decorate([
         $.$mol_mem
@@ -7237,13 +7263,10 @@ var $;
     ], $my_smz.prototype, "Work_deadline", null);
     __decorate([
         $.$mol_mem_key
-    ], $my_smz.prototype, "work_amount", null);
-    __decorate([
-        $.$mol_mem_key
-    ], $my_smz.prototype, "Work_amount", null);
-    __decorate([
-        $.$mol_mem_key
     ], $my_smz.prototype, "allow", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $my_smz.prototype, "work_amount", null);
     __decorate([
         $.$mol_mem_key
     ], $my_smz.prototype, "Quick_allow_icon", null);
@@ -7282,32 +7305,20 @@ var $;
         sub() {
             return [
                 this.Title(),
-                this.Allow()
+                this.Count()
             ];
         }
         Title() {
             const obj = new this.$.$mol_paragraph();
             obj.sub = () => [
-                this.title(),
-                " (1)"
+                this.title()
             ];
             return obj;
         }
-        allow(value) {
-            if (value !== undefined)
-                return value;
-            return null;
-        }
-        Allow_icon() {
-            const obj = new this.$.$mol_icon_check_circle();
-            return obj;
-        }
-        Allow() {
-            const obj = new this.$.$mol_button_minor();
-            obj.hint = () => this.$.$mol_locale.text('$my_smz_filter_Allow_hint');
-            obj.click = (value) => this.allow(value);
+        Count() {
+            const obj = new this.$.$mol_paragraph();
             obj.sub = () => [
-                this.Allow_icon()
+                " 1"
             ];
             return obj;
         }
@@ -7317,13 +7328,7 @@ var $;
     ], $my_smz_filter.prototype, "Title", null);
     __decorate([
         $.$mol_mem
-    ], $my_smz_filter.prototype, "allow", null);
-    __decorate([
-        $.$mol_mem
-    ], $my_smz_filter.prototype, "Allow_icon", null);
-    __decorate([
-        $.$mol_mem
-    ], $my_smz_filter.prototype, "Allow", null);
+    ], $my_smz_filter.prototype, "Count", null);
     $.$my_smz_filter = $my_smz_filter;
 })($ || ($ = {}));
 //smz.view.tree.js.map
@@ -7887,7 +7892,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 40rem 0 0;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_amount] {\n\tflex: 6rem 0 0;\n\tjustify-content: flex-end;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_filter_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n}\n\n[my_smz_details] {\n\tflex: 30rem 0 0;\n}\n\n[my_smz_info] {\n\tpadding: .75rem;\n\tflex-wrap: wrap;\n}\n\n[my_smz_info]>* {\n\tmargin: .75rem;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
+    $.$mol_style_attach("my/smz/smz.view.css", "[my_smz][mol_theme=\"$mol_theme_light\"] {\n\t--mol_theme_back: hsl( 210 , 0% , 95% );\n}\n\n[my_smz] [mol_theme=\"$mol_theme_accent\"] {\n\t--mol_theme_back: #56A93B;\n\t--mol_theme_hover: #46992B;\n}\n\n[my_smz] [mol_link] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_button] {\n\tborder-radius: .25rem;\n}\n\n[my_smz] [mol_link][mol_link_current=\"true\"] {\n    background-color: var(--mol_theme_field);\n}\n\n\n[my_smz_menu] {\n\tflex: 15rem 0 0;\n}\n\n[my_smz_works] {\n\tflex: 36rem 0 0;\n}\n\n[my_smz_works_total] {\n\tpadding: .5rem .75rem;\n\tcolor: #66B94B;\n\tfont-weight: bolder;\n}\n\n[my_smz_filter],\n[my_smz_work_link] {\n\tbackground: var(--mol_theme_field);\n\tflex-wrap: wrap;\n\tmargin: .75rem;\n\tpadding: 0;\n\tjustify-content: flex-end;\n}\n\n[my_smz_filter] > *,\n[my_smz_work_link] > * {\n\tmargin: .5rem .75rem;\n}\n\n[my_smz_filter_title] {\n\tflex: auto 1 0;\n}\n\n[my_smz_work_title] {\n\tflex: 15rem 1 0;\n}\n\n[my_smz_work_deadline] {\n\tflex: 6rem 0 0;\n}\n\n[my_smz_works_allow],\n[my_smz_quick_allow] {\n\tmargin: 0;\n\tcolor: #66B94B;\n\tflex: 7rem 0 0;\n\tjustify-content: flex-end;\n\tfont-weight: bolder;\n\ttext-align: right;\n}\n\n[my_smz_details] {\n\tflex: 28rem 0 0;\n}\n\n[my_smz_info] {\n\tpadding: .75rem;\n\tflex-wrap: wrap;\n}\n\n[my_smz_info]>* {\n\tmargin: .75rem;\n}\n\n[my_smz_allow] {\n\tmargin: 0 auto;\n}\n");
 })($ || ($ = {}));
 //smz.view.css.js.map
 ;
@@ -7946,7 +7951,6 @@ var $;
             work_amount(id) {
                 const data = this.work_store().sub(id);
                 const unit = new $.$mol_unit(data.value('amount'));
-                unit.postfix = () => ' ' + data.value('currency');
                 return unit;
             }
             work_deadline(id) {

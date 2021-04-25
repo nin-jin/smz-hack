@@ -10,6 +10,6 @@
 	"$my_smz_Quick_allow_hint": "Pay",
 	"$my_smz_Unpayed_link_title": "Unpayed",
 	"$my_smz_Worker_name_title": "Worker",
-	"$my_smz_Works_title": "Done Works",
-	"$my_smz_filter_Allow_hint": "Pay All"
+	"$my_smz_Works_allow_hint": "Pay All",
+	"$my_smz_Works_title": "Done Works"
 }
