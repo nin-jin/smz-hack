@@ -3786,6 +3786,9 @@ var $;
             this.data(Object.assign(new Constr, data, { [key]: next }));
             return next;
         }
+        selection(key, next = [0, 0]) {
+            return next;
+        }
         sub(key, lens) {
             if (!lens)
                 lens = new $mol_store();
@@ -3809,6 +3812,9 @@ var $;
     __decorate([
         $.$mol_mem
     ], $mol_store.prototype, "data", null);
+    __decorate([
+        $.$mol_mem_key
+    ], $mol_store.prototype, "selection", null);
     $.$mol_store = $mol_store;
 })($ || ($ = {}));
 //store.js.map
@@ -6574,7 +6580,7 @@ var $;
     $.$mol_syntax2_md_code = new $.$mol_syntax2({
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
-        'code-link': /\w+:\S+?(?=\s|\\\\|""|$)/,
+        'code-link': /(?:\w+:|#|\?|\/)\S+?(?=\s|\\\\|""|$)/,
         'code-comment-inline': /\/\/.*?$/,
         'code-string': /(?:".*?"|'.*?'|`.*?`|\/.+?\/[gmi]*\b|(?:^|[ \t])\\[^\n]*\n)/,
         'code-number': /[+-]?(?:\d*\.)?\d+\w*/,
